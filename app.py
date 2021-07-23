@@ -1,4 +1,6 @@
 import flask
+import controllers.data_pipeline as data_pipeline
+import datetime
 
 app = flask.Flask(__name__)
 
@@ -14,6 +16,7 @@ def index():
 @app.route('/about')
 def about():
     # about page
+    data_pipeline.collect_earnings(str(datetime.date.today()))
     return flask.render_template('about.html')
 
 @app.route('/policies')
