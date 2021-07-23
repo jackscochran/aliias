@@ -20,7 +20,7 @@ def measure_performance(ticker):
 
 def collect_earnings(day):
 
-    db_adaptor.setup_network_connection('test')
+    db_adaptor.setup_network_connection(os.environ.get('DB_NAME'))
 
     tickers = []
     print('getting tickers...')
