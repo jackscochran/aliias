@@ -13,7 +13,7 @@ def earnings_calender(start_date, end_date):
         date_from = int(datetime.datetime.strptime(start_date, '%Y-%m-%d' ).timestamp() * 1000)
         date_to = int(datetime.datetime.strptime(end_date, '%Y-%m-%d' ).timestamp() * 1000 + 86400000)
         companies = earnings_API(date_from, date_to)
-
+        print(companies)
         return [(company['ticker'], company['companyShortName']) for company in companies['finance']['result']]
 
 def extract_financials(ticker):
