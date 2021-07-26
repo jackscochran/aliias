@@ -1,6 +1,6 @@
 import unittest
 import evaluators.logical_model as evaluator
-import services.db_adaptor as db_adaptor
+import services.stock_adaptor as stock_adaptor
 import controllers.data_pipeline as data_pipeline
 
 DATABASE_NAME = 'test'
@@ -93,14 +93,14 @@ class Pipeline(unittest.TestCase):
 class TestDBAdaptor(unittest.TestCase):
 
     def setUp(self):
-        db_adaptor.setup_network_connection(DATABASE_NAME)
+        stock_adaptor.setup_network_connection(DATABASE_NAME)
 
     def test_company_existance(self):
-        db_adaptor.add_company('TEST', 'TEST Stock')
-        self.assertIsNotNone(db_adaptor.get_company('TEST'))
+        stock_adaptor.add_company('TEST', 'TEST Stock')
+        self.assertIsNotNone(stock_adaptor.get_company('TEST'))
 
     def test_non_existance(self):
-        self.assertIsNone(db_adaptor.get_company('feoquqfh34u'))
+        self.assertIsNone(stock_adaptor.get_company('feoquqfh34u'))
 
 if __name__ == '__main__':
     unittest.main()

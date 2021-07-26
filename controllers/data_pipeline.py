@@ -5,7 +5,7 @@ import evaluators.logical_model as logical_model
 import datetime
 import os
 
-EVALUATION_FREQUENCY = os.environ.get('EVALUATION_FREQUENCY') # times per years
+EVALUATION_FREQUENCY = int(os.environ.get('EVALUATION_FREQUENCY')) # times per years
 
 # ---------- HELPER FUNCTIONS --------- #
 
