@@ -1,6 +1,7 @@
 from data.financialPeriods import FinancialPeriod
-from data.performances import Performance
+from data.dailyPrices import DailyPrice
 from data.evaluations import Evaluation
+from data.quotes import Quote
 import mongoengine
 import datetime
 
@@ -11,25 +12,28 @@ class Company(mongoengine.Document):
     def get_latest_financials(self, period):
         return self.get_financials(str(datetime.date.today()), period)
 
-    def get_latest_performance(self):
+    def get_latest_quote_data(self):
         return self.get_financials(str(datetime.date.today()))
 
     def get_financials(self, date, period):
         return FinancialPeriod.objects(ticker=self.ticker, period_length=period, end_date__lte=date).order_by('-end_date').first()
 
-    def get_performance_data(self, date):
-        return Performance.objects(ticker=self.ticker, date__lte=date).order_by('-date').first()
+    def get_quote_data(self, date):
+        return Quote.objects(ticker=self.ticker, date__lte=date).order_by('-date').first()
 
     def get_evaluations(self):
         return Evaluation.objects(ticker=self.ticker)
 
+    def get_price(self, date):
+        return DailyPrice.objects(ticker=self.ticker, date=date).first()
+
     def performace(self, start, period):
 
-        future_performance = self.get_performance_data(change_months(start, period))
-        current_performance = self.get_performance_data(start)
+        future_value = self.get_price(change_months(start, period))
+        current_value = self.get_price(start)
 
-        if future_performance:
-            return future_performance.price / current_performance.price
+        if future_value:
+            return future_value.price / current_value.price
         
         return None
 

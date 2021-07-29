@@ -1,105 +1,86 @@
 import json, requests
 import datetime
 import os
-
-API_KEY = os.environ.get('API_KEY') 
+import yahoo_fin.stock_info as yf_stock_info
+from yahoo_fin import news as yf_news
 
 # -------- MAIN FUNCTIONS ---------#
 
-def earnings_calender(start_date, end_date):
-    # collect all companies included on yahoo's earnings calender for the given range
-
-        # adapt inputs into datatime objects
-        date_from = int(datetime.datetime.strptime(start_date, '%Y-%m-%d' ).timestamp() * 1000)
-        date_to = int(datetime.datetime.strptime(end_date, '%Y-%m-%d' ).timestamp() * 1000 + 86400000)
-        print(date_from)
-        print(date_to)
-        companies = earnings_API(date_from, date_to)
-        print(companies)
-        return [(company['ticker'], company['companyShortName']) for company in companies['finance']['result']]
+def earnings_on(date):
+    response = yf_stock_info.get_earnings_for_date(date)
+    return [(company['ticker'], company['companyshortname']) for company in response]
 
 def extract_financials(ticker):
 
-    response = stock_API("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-financials", ticker)
+    financials = yf_stock_info.get_financials(ticker)
 
-    financialPeriods = []
+    formatted_financial_periods = []
 
-    # get yearly financials
-    
-    max_years = len(response['incomeStatementHistory']['incomeStatementHistory'])
-    
-    for i in range(max_years):
-        financialPeriods.append({
+    yearly_income_statements = financials['yearly_income_statement'].to_dict()
+    yearly_balance_sheets = financials['yearly_balance_sheet'].to_dict()
+    yearly_cash_flow = financials['yearly_cash_flow'].to_dict()
+
+    for end_date_time_stamp in yearly_income_statements:
+        formatted_financial_periods.append({
             'ticker': ticker,
             'period': 12,
-            'end_date': response['incomeStatementHistory']['incomeStatementHistory'][i]['endDate']['fmt'],
-            'incomeStatement': cleanFinancialData(response['incomeStatementHistory']['incomeStatementHistory'][i]),
-            'balanceSheet': cleanFinancialData(response['balanceSheetHistory']['balanceSheetStatements'][i]),
-            'cashflowStatement': cleanFinancialData(response['cashflowStatementHistory']['cashflowStatements'][i])
+            'end_date': str(end_date_time_stamp).split(' ')[0],
+            'incomeStatement': yearly_income_statements[end_date_time_stamp],
+            'balanceSheet': yearly_balance_sheets[end_date_time_stamp],
+            'cashflowStatement': yearly_cash_flow[end_date_time_stamp]
         })
-            
 
-    # get quarterly financials
-    
-    max_quarters = len(response['incomeStatementHistoryQuarterly']['incomeStatementHistory'])
+    quarterly_income_statements = financials['quarterly_income_statement'].to_dict()
+    quarterly_balance_sheets = financials['quarterly_balance_sheet'].to_dict()
+    quarterly_cash_flow = financials['quarterly_cash_flow'].to_dict()
 
-    for i in range(max_quarters):
-        financialPeriods.append({
+    for end_date_time_stamp in quarterly_income_statements:
+        formatted_financial_periods.append({
             'ticker': ticker,
             'period': 3,
-            'end_date': response['incomeStatementHistoryQuarterly']['incomeStatementHistory'][i]['endDate']['fmt'],
-            'incomeStatement': cleanFinancialData(response['incomeStatementHistoryQuarterly']['incomeStatementHistory'][i]),
-            'balanceSheet': cleanFinancialData(response['balanceSheetHistoryQuarterly']['balanceSheetStatements'][i]),
-            'cashflowStatement': cleanFinancialData(response['cashflowStatementHistoryQuarterly']['cashflowStatements'][i])
+            'end_date': str(end_date_time_stamp).split(' ')[0],
+            'incomeStatement': quarterly_income_statements[end_date_time_stamp],
+            'balanceSheet': quarterly_balance_sheets[end_date_time_stamp],
+            'cashflowStatement': quarterly_cash_flow[end_date_time_stamp]
         })
-            
 
-    return financialPeriods
+    return formatted_financial_periods
 
-def extract_performance(ticker):
-    response = stock_API("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary", ticker)
+def extract_quote_data(ticker):
+    
+    quote_data = yf_stock_info.get_quote_table(ticker)
+    quote_data.pop('symbol', None)
+    quote_data['avgVolume'] = quote_data.pop('Avg. Volume', None)
+    quote_data['Market Cap'] = convert_currency(quote_data.get('Market Cap', None))
 
-    performance = {
+    quote = {
+        'ticker': ticker,
         'date': str(datetime.date.today()),
-        'price': response['price']['regularMarketPrice'].get('raw', None),
-        'eps': response['defaultKeyStatistics']['trailingEps'].get('raw', None),
-        'market_cap': response['summaryDetail']['marketCap'].get('raw', None),
+        'data': quote_data
+    }
+    
+    return quote
+
+def get_price(ticker):
+    return yf_stock_info.get_live_price(ticker) 
+
+def get_rss_news(ticker):
+    return yf_news.get_yf_rss(ticker)
+
+# ------------ Helper Functions -------------- #
+
+def convert_currency(amount):
+
+    if not amount:
+        return amount
+
+    value = float(amount[:-1])
+
+    aplifiers = {
+        'G': 1000,
+        'M': 1000000,
+        'B': 1000000000,
+        'T': 1000000000000
     }
 
-    return performance
-
-# -------- HELPER FUNCTIONS -------#
-
-def stock_API(url, ticker):
-
-    headers = {
-            'x-rapidapi-key': API_KEY,
-            'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com"
-        }
-
-    response = requests.request("GET", url, headers=headers, params={"symbol": ticker}).text
-    return json.loads(response)
-
-def earnings_API(date_from, date_to):
-    url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-earnings"
-
-    querystring = {"region":"US","startDate":date_from,"endDate":date_to}
-
-    headers = {
-        'x-rapidapi-key': API_KEY,
-        'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com"
-        }
-
-    response = requests.request("GET", url, headers=headers, params=querystring)
-
-    return json.loads(response.text)
-
-def cleanFinancialData(data):
-
-    clean_data = data
-
-    for item in data:
-        if item != 'maxAge':
-            clean_data[item] = data[item].get('raw', None)
-
-    return clean_data
+    return value * aplifiers.get(amount[-1])

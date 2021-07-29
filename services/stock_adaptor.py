@@ -1,9 +1,9 @@
-from data.users import User
 import datetime
 from data.companies import Company
 from data.financialPeriods import FinancialPeriod
-from data.performances import Performance
+from data.quotes import Quote
 from data.evaluations import Evaluation
+from data.dailyPrices import DailyPrice
 import mongoengine
 import os
 from data.earningsDates import EarningsDate
@@ -38,19 +38,28 @@ def add_financialPeriod(financials):
     period.cashflowStatement = financials['cashflowStatement']
     period.save()
 
-def add_performance(ticker, performance_data):
+def add_quote(company_quote):
 
-    performance = Performance.objects(date=performance_data.get('date', datetime.date.today), ticker=ticker).first()
+    quote = Quote.objects(date=company_quote.get('date'), ticker=company_quote.get('ticker', None)).first()
 
-    if not performance:  # add new period to database
-        performance = Performance()
-        performance.ticker = ticker
-        performance.date = performance_data.get('date', datetime.date.today)
+    if not quote:  # add new period to database
+        quote = Quote()
+        quote.ticker = company_quote.get('ticker', None)
+        quote.date = company_quote.get('date', None)
     
-    performance.price = performance_data['price'] 
-    performance.market_cap = performance_data['market_cap'] 
-    performance.eps = performance_data['eps'] 
-    performance.save()
+    quote.data = company_quote.get('data', None)
+    quote.save()
+
+def add_price(ticker, date, price):
+    daily_price =  DailyPrice.objects(ticker=ticker, date=date).first()
+    
+    if not daily_price:
+        daily_price = DailyPrice()
+        daily_price.ticker = ticker
+        daily_price.date = date
+
+    daily_price.price = price
+    daily_price.save()
 
 def add_evaluation(ticker, date, rating, evaluator, inputs):
     ticker = ticker.upper()
@@ -114,5 +123,4 @@ def setup_local_connection(database):
 
 def setup_network_connection(db):
     mongoengine.connect(host='mongodb+srv://' + os.environ.get('DB_ACCOUNT') + ':' + os.environ.get('DB_PASSWORD') + '@realmcluster.zudeo.mongodb.net/' + db + '?retryWrites=true&w=majority', alias='core')
-
 

@@ -1,4 +1,4 @@
-import services.db_adaptor as db_adaptor
+import services.stock_adaptor as db_adaptor
 
 def calculate_correlation(period):
 

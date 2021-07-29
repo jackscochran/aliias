@@ -1,7 +1,8 @@
 import unittest
-import evaluators.logical_model as evaluator
 import services.stock_adaptor as stock_adaptor
 import controllers.data_pipeline as data_pipeline
+import evaluators.logical_model as evaluator
+
 
 DATABASE_NAME = 'test'
 
@@ -93,7 +94,7 @@ class Pipeline(unittest.TestCase):
 class TestDBAdaptor(unittest.TestCase):
 
     def setUp(self):
-        stock_adaptor.setup_network_connection(DATABASE_NAME)
+        stock_adaptor.setup_local_connection(DATABASE_NAME)
 
     def test_company_existance(self):
         stock_adaptor.add_company('TEST', 'TEST Stock')

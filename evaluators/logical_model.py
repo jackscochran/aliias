@@ -1,4 +1,3 @@
-from data.performances import Performance
 from data.companies import Company
 import services.stock_adaptor as db_adaptor
 import datetime
@@ -151,8 +150,13 @@ def get_data(ticker, date):
 
     data = [None] * 3
 
-    performance_measurements = company.get_performance_data(date)
-    
+    raw_quote_data = company.get_quote_data(date).data
+    quote_data = {
+        'price': raw_quote_data.get('Quote Price', None),
+        'market_cap': raw_quote_data.get('Market Cap', None),
+        'eps': raw_quote_data.get('EPS (TTM)', None)
+    }
+
     for years_back in range(3):
 
         financials = company.get_financials(date, 12)
@@ -161,8 +165,8 @@ def get_data(ticker, date):
 
         if financials:
             data[years_back] = {
-                'sharePrice': performance_measurements.price,
-                'marketCap': performance_measurements.market_cap,
+                'sharePrice': quote_data['price'],
+                'marketCap': quote_data['market_cap'],
                 'revenue': financials.incomeStatement.get('totalRevenue', 1),
                 'grossProfit': financials.incomeStatement.get('grossProfit', 1),
                 'operatingIncome': financials.incomeStatement.get('operatingIncome', 1),
@@ -182,7 +186,7 @@ def get_data(ticker, date):
                 'operatingCashflow': financials.cashflowStatement.get('totalCashFromOperatingActivities', 1),
                 'capitalExpenditure': financials.cashflowStatement.get('capitalExpenditures', 1),
                 'depreciation': financials.cashflowStatement.get('depreciation', 1),
-                'eps': performance_measurements.eps 
+                'eps': quote_data['eps'] 
             }
             
 
@@ -195,6 +199,8 @@ def get_data(ticker, date):
                 financial_year[item] = 1
 
     return data
+
+# ---------- HELPER FUNCTIONS -----------#
 
 def decriment_year(date):
     date = date.split('-')
