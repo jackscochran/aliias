@@ -1,10 +1,10 @@
-import services.stock_adaptor as db_adaptor
+import adaptors.stock_adaptor as stock_adaptor
 
 def calculate_correlation(period):
 
     plots = {}
 
-    for company in db_adaptor.get_all_companies():
+    for company in stock_adaptor.get_all_companies():
         for evaluation in company.get_evaluations():
             if evaluation.evaluator not in plots.keys():
                 plots[evaluation.evaluator] = {'rating': [], 'growth': []}

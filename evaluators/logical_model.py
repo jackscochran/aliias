@@ -1,5 +1,5 @@
 from data.companies import Company
-import services.stock_adaptor as db_adaptor
+import adaptors.stock_adaptor as stock_adaptor
 import datetime
 
 EVALUATOR_NAME = 'Logical'
@@ -146,15 +146,15 @@ def rate(data):
     return rating/10
 
 def get_data(ticker, date):
-    company = db_adaptor.get_company(ticker)
+    company = stock_adaptor.get_company(ticker)
 
     data = [None] * 3
 
     raw_quote_data = company.get_quote_data(date).data
     quote_data = {
-        'price': raw_quote_data.get('Quote Price', None),
-        'market_cap': raw_quote_data.get('Market Cap', None),
-        'eps': raw_quote_data.get('EPS (TTM)', None)
+        'price': raw_quote_data.get('quotePrice', 1),
+        'market_cap': raw_quote_data.get('marketCap', 1),
+        'eps': raw_quote_data.get('epsTtm', 1)
     }
 
     for years_back in range(3):

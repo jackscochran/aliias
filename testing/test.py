@@ -1,5 +1,5 @@
 import unittest
-import services.stock_adaptor as stock_adaptor
+import adaptors.stock_adaptor as stock_adaptor
 import controllers.data_pipeline as data_pipeline
 import evaluators.logical_model as evaluator
 

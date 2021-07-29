@@ -1,6 +1,6 @@
 from data.companies import Company
-import services.yahoo_portal as yahoo_portal
-import services.stock_adaptor as db_adaptor
+import adaptors.yahoo_portal as yahoo_portal
+import adaptors.stock_adaptor as db_adaptor
 import evaluators.logical_model as logical_model
 import datetime
 import os

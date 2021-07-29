@@ -49,9 +49,28 @@ def extract_financials(ticker):
 def extract_quote_data(ticker):
     
     quote_data = yf_stock_info.get_quote_table(ticker)
+
+    # remove unnessary data
     quote_data.pop('symbol', None)
+
+    # rename variables to camelCase and reformat data
+    quote_data['firstYearTargetEst'] = quote_data.pop('1y Target Est')
+    quote_data['fiftyTwoWeekRange'] = quote_data.pop('52 Week Range')
+    quote_data['ask'] = quote_data.pop('Ask')
+    quote_data['betaFiveYearMonthly'] = quote_data.pop('Beta (5Y Monthly)')
+    quote_data['bid'] = quote_data.pop('Bid')
+    quote_data['daysRange'] = quote_data.pop("Day's Range")
+    quote_data['epsTtm'] = quote_data.pop('EPS (TTM)')
+    quote_data['earningsDate'] = quote_data.pop('Earnings Date')
+    quote_data['exDividendDate'] = quote_data.pop('Ex-Dividend Date')
+    quote_data['forwardDividendAndYield'] = quote_data.pop('Forward Dividend & Yield')
+    quote_data['marketCap'] = convert_currency(quote_data.get('Market Cap', None))
+    quote_data['open'] = quote_data.pop('Open')
+    quote_data['peRatioTtm'] = quote_data.pop('PE Ratio (TTM)')
+    quote_data['previous'] = quote_data.pop('Previous Close')
+    quote_data['quotePrice'] = quote_data.pop('Quote Price')
+    quote_data['volume'] = quote_data.pop('Volume')
     quote_data['avgVolume'] = quote_data.pop('Avg. Volume', None)
-    quote_data['Market Cap'] = convert_currency(quote_data.get('Market Cap', None))
 
     quote = {
         'ticker': ticker,
