@@ -64,7 +64,7 @@ def extract_quote_data(ticker):
     quote_data['earningsDate'] = quote_data.pop('Earnings Date')
     quote_data['exDividendDate'] = quote_data.pop('Ex-Dividend Date')
     quote_data['forwardDividendAndYield'] = quote_data.pop('Forward Dividend & Yield')
-    quote_data['marketCap'] = convert_currency(quote_data.get('Market Cap', None))
+    quote_data['marketCap'] = convert_currency(quote_data.pop('Market Cap', None))
     quote_data['open'] = quote_data.pop('Open')
     quote_data['peRatioTtm'] = quote_data.pop('PE Ratio (TTM)')
     quote_data['previous'] = quote_data.pop('Previous Close')
