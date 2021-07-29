@@ -37,7 +37,7 @@ def collect_earnings(day):
 
     tickers = []
     count = 0
-    print('scraping earnings calender...')
+    print('scraping ' + day + ' on yahoo earnings calender...' )
     companies = yahoo_portal.earnings_on(day)
     print('earnings calender scrape complete')
     print('scraping and saving ticker data...')
@@ -50,8 +50,8 @@ def collect_earnings(day):
         collect_and_save_financials(company[0])
         evaluate_logical_model(company[0])
 
-    tickers = [company[0] for company in companies]
     # add new earnings calender date to the datebase
+    tickers = [company[0] for company in companies]
     db_adaptor.add_earnings_date(tickers, day)  
 
 def daily_evaluation():
