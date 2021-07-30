@@ -1,4 +1,3 @@
-import datetime
 from data.companies import Company
 from data.financialPeriods import FinancialPeriod
 from data.quotes import Quote

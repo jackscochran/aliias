@@ -9,8 +9,12 @@ import os
 # ---------- HELPER FUNCTIONS --------- #
 
 def collect_and_save_financials(ticker):
-    for period in yahoo_portal.extract_financials(ticker):
-        db_adaptor.add_financialPeriod(period)
+    try:
+        for period in yahoo_portal.extract_financials(ticker):
+            db_adaptor.add_financialPeriod(period)
+    except:
+        print('error collecting financials for stock ' + ticker)
+        return
 
 def collect_and_save_quote(ticker):
     db_adaptor.add_quote(yahoo_portal.extract_quote_data(ticker))
@@ -21,16 +25,18 @@ def collect_and_save_price(ticker):
 def evaluate_logical_model(ticker):
     if ticker[-1].upper() == 'F':
         return
-        
+
     today = str(datetime.date.today())
     inputs = logical_model.get_data(ticker, today)
-    db_adaptor.add_evaluation(
-        ticker,
-        today,
-        logical_model.rate(inputs),
-        logical_model.EVALUATOR_NAME,
-        inputs
-        ) 
+
+    if inputs == None:
+        db_adaptor.add_evaluation(
+            ticker,
+            today,
+            logical_model.rate(inputs),
+            logical_model.EVALUATOR_NAME,
+            inputs
+            ) 
 
 # ----------- MAIN FUNCTIONS ---------- #
 

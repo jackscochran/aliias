@@ -161,6 +161,10 @@ def get_data(ticker, date):
 
         financials = company.get_financials(date, 12)
 
+        if financials == None:
+            print('Insufficent data for rating, Could not find financials for ' + ticker + ' on the date ' + date)
+            return None
+
         data[years_back] = {}
 
         if financials:
