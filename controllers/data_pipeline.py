@@ -65,12 +65,11 @@ def collect_earnings(day):
     stock_adaptor.add_earnings_date(tickers, day)  
 
 def collect_current_prices():
+    print('Collecting Prices for tickers in database')
+    print('Collecting price for: ')
     for ticker in stock_adaptor.get_all_tickers():
-        stock_adaptor.add_price(
-            ticker,
-            str(datetime.date.today()),
-            yahoo_portal.get_price(ticker)
-        )
+        print(ticker)
+        collect_and_save_price(ticker)
 
 def iterate_date_range(start, end):
     
