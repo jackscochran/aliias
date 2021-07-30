@@ -19,6 +19,9 @@ def collect_and_save_price(ticker):
     db_adaptor.add_price(ticker, str(datetime.date.today()),yahoo_portal.get_price(ticker))
 
 def evaluate_logical_model(ticker):
+    if ticker[-1].upper() == 'F':
+        return
+        
     today = str(datetime.date.today())
     inputs = logical_model.get_data(ticker, today)
     db_adaptor.add_evaluation(
@@ -38,7 +41,7 @@ def collect_earnings(day):
     tickers = []
     count = 0
     print('scraping ' + day + ' on yahoo earnings calender...' )
-    companies = yahoo_portal.earnings_on(day)
+    companies = [company for company in yahoo_portal.earnings_on(day) if company[0][-1].upper != 'F']
     print('earnings calender scrape complete')
     print('scraping and saving ticker data...')
     for company in companies:
