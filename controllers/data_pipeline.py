@@ -65,6 +65,7 @@ def collect_earnings(day):
     stock_adaptor.add_earnings_date(tickers, day)  
 
 def collect_current_prices():
+    stock_adaptor.setup_network_connection(os.environ.get('DB_NAME'))
     print('Collecting Prices for tickers in database')
     print('Collecting price for: ')
     for ticker in stock_adaptor.get_all_tickers():
