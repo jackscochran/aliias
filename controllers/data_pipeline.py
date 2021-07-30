@@ -57,8 +57,9 @@ def collect_earnings(day):
         collect_and_save_price(company[0])
         collect_and_save_quote(company[0])
         collect_and_save_financials(company[0])
-        evaluate_logical_model(company[0])
+        # evaluate_logical_model(company[0])
 
+    print('Earnings Calender scrape completed. ' + str(count) + ' Tickers collected')
     # add new earnings calender date to the datebase
     tickers = [company[0] for company in companies]
     db_adaptor.add_earnings_date(tickers, day)  
