@@ -1,6 +1,6 @@
 from data.companies import Company
 import adaptors.yahoo_portal as yahoo_portal
-import adaptors.stock_adaptor as db_adaptor
+import adaptors.stock_adaptor as stock_adaptor
 import evaluators.logical_model as logical_model
 import datetime
 import os
@@ -11,16 +11,16 @@ import os
 def collect_and_save_financials(ticker):
     try:
         for period in yahoo_portal.extract_financials(ticker):
-            db_adaptor.add_financialPeriod(period)
+            stock_adaptor.add_financialPeriod(period)
     except:
         print('error collecting financials for stock ' + ticker)
         return
 
 def collect_and_save_quote(ticker):
-    db_adaptor.add_quote(yahoo_portal.extract_quote_data(ticker))
+    stock_adaptor.add_quote(yahoo_portal.extract_quote_data(ticker))
 
 def collect_and_save_price(ticker):
-    db_adaptor.add_price(ticker, str(datetime.date.today()),yahoo_portal.get_price(ticker))
+    stock_adaptor.add_price(ticker, str(datetime.date.today()),yahoo_portal.get_price(ticker))
 
 def evaluate_logical_model(ticker):
     if ticker[-1].upper() == 'F':
@@ -30,7 +30,7 @@ def evaluate_logical_model(ticker):
     inputs = logical_model.get_data(ticker, today)
 
     if inputs == None:
-        db_adaptor.add_evaluation(
+        stock_adaptor.add_evaluation(
             ticker,
             today,
             logical_model.rate(inputs),
@@ -42,7 +42,7 @@ def evaluate_logical_model(ticker):
 
 def collect_earnings(day):
 
-    db_adaptor.setup_network_connection(os.environ.get('DB_NAME'))
+    stock_adaptor.setup_network_connection(os.environ.get('DB_NAME'))
 
     tickers = []
     count = 0
@@ -53,7 +53,7 @@ def collect_earnings(day):
     for company in companies:
         count += 1
         print(company[1] + '(' + company[0] + ') - ' + str(count) + ' / ' + str(len(companies)))#display progress
-        db_adaptor.add_company(company[0], company[1])
+        stock_adaptor.add_company(company[0], company[1])
         collect_and_save_price(company[0])
         collect_and_save_quote(company[0])
         collect_and_save_financials(company[0])
@@ -62,10 +62,15 @@ def collect_earnings(day):
     print('Earnings Calender scrape completed. ' + str(count) + ' Tickers collected')
     # add new earnings calender date to the datebase
     tickers = [company[0] for company in companies]
-    db_adaptor.add_earnings_date(tickers, day)  
+    stock_adaptor.add_earnings_date(tickers, day)  
 
-def daily_evaluation():
-    pass
+def collect_current_prices():
+    for ticker in stock_adaptor.get_all_tickers():
+        stock_adaptor.add_price(
+            ticker,
+            str(datetime.date.today()),
+            yahoo_portal.get_price(ticker)
+        )
 
 def iterate_date_range(start, end):
     

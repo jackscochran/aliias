@@ -123,3 +123,5 @@ def setup_local_connection(database):
 def setup_network_connection(db):
     mongoengine.connect(host='mongodb+srv://' + os.environ.get('DB_ACCOUNT') + ':' + os.environ.get('DB_PASSWORD') + '@realmcluster.zudeo.mongodb.net/' + db + '?retryWrites=true&w=majority', alias='core')
 
+def get_all_tickers():
+    return [company.ticker for company in Company.objects]
