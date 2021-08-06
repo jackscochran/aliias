@@ -1,12 +1,52 @@
-from data.companies import Company
-import adaptors.stock_adaptor as stock_adaptor
+"""
+The model-1 is the initiaal stock rating algorithm
+that uses soley quanatative data
+"""
+
+# Standard libary imports
 import datetime
 
-EVALUATOR_NAME = 'Logical'
+# Third party imports
+
+# Local application imports
+import adaptors.company as company_adaptor
+import adaptors.evaluation as evaluation_adaptor
+import evaluators.abstract_evaluator as abstract_evaluator
+
+class ModelOne(abstract_evaluator.Evaluator):
+    def create_new_version(self):
+        self.name = 'modelOne'
+        return super().create_new_version()
+
+    def evaluate_ticker(self, ticker, date):
+        if ticker[-1].upper() == 'F' and len(ticker) == 5: 
+            # foreign stock, does not compute with model one
+            return
+
+        # load ticker data
+        data = get_ticker_data(ticker, date)
+
+        if data is None:
+            return
+
+        # rate ticker
+        rating = rate(data)
+
+        # create and save evaluation 
+        evaluation_adaptor.add_evaluation(
+            ticker=ticker,
+            date=date,
+            evaluator_name=self.name,
+            rating=rating,
+            inputs=data
+        )
 
 # -------- EVALUATION FUNCTIONS -------- #
 
 def rate(data):
+    
+    if data is None:
+        return None
 
     inputs = {
         'netIncome': {
@@ -145,22 +185,31 @@ def rate(data):
 
     return rating/10
 
-def get_data(ticker, date):
-    company = stock_adaptor.get_company(ticker)
+def get_ticker_data(ticker, date):
+    company = company_adaptor.get_company(ticker)
 
     data = [None] * 3
 
-    raw_quote_data = company.get_quote_data(date).data
+    share_price = company.get_price(date)
+    if share_price is None:
+        share_price = company.get_latest_price()
+
+    raw_quote_data = company.get_quote_data(date)
+
+    if raw_quote_data is None:
+        raw_quote_data = company.get_latest_quote_data()
+
+    if raw_quote_data is None:
+        print('Insufficent data for rating, Could not find quote data for ' + ticker + ' on the date ' + date)
+        return
     quote_data = {
-        'price': raw_quote_data.get('quotePrice', 1),
-        'market_cap': raw_quote_data.get('marketCap', 1),
-        'eps': raw_quote_data.get('epsTtm', 1)
+        'market_cap': raw_quote_data.data.get('marketCap', 1),
+        'eps': raw_quote_data.data.get('epsTtm', 1)
     }
 
     for years_back in range(3):
 
         financials = company.get_financials(date, 12)
-
         if financials == None:
             print('Insufficent data for rating, Could not find financials for ' + ticker + ' on the date ' + date)
             return None
@@ -169,7 +218,7 @@ def get_data(ticker, date):
 
         if financials:
             data[years_back] = {
-                'sharePrice': quote_data['price'],
+                'sharePrice': share_price.price,
                 'marketCap': quote_data['market_cap'],
                 'revenue': financials.incomeStatement.get('totalRevenue', 1),
                 'grossProfit': financials.incomeStatement.get('grossProfit', 1),
@@ -204,9 +253,26 @@ def get_data(ticker, date):
 
     return data
 
+def evaluate_and_record(ticker, date):
+
+    model = ModelOne.objects().order_by('-version').first()
+
+    if model == None:
+        model = ModelOne().create_new_version()
+  
+    model.evaluate_ticker(ticker, date)
+
 # ---------- HELPER FUNCTIONS -----------#
 
 def decriment_year(date):
+    date = date.split('-')
+
+    date[0] = str(int(date[0]) - 1)
+
+    return date[0] + '-' + date[1] + '-' + date[2]
+
+
+def increment_year(date):
     date = date.split('-')
 
     date[0] = str(int(date[0]) - 1)

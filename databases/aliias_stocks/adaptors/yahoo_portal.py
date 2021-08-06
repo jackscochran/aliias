@@ -1,4 +1,5 @@
 import json, requests
+from numpy import nan
 import datetime
 import os
 import yahoo_fin.stock_info as yf_stock_info
@@ -7,9 +8,14 @@ from yahoo_fin import news as yf_news
 # -------- MAIN FUNCTIONS ---------#
 
 def earnings_on(date):
-    response = yf_stock_info.get_earnings_for_date(date)
-    return [(company['ticker'], company['companyshortname']) for company in response]
+    try:
+        response = yf_stock_info.get_earnings_for_date(date)
+    except:
+        return []
 
+
+    return [(company['ticker'], company['companyshortname']) for company in response]
+    
 def extract_financials(ticker):
 
     financials = yf_stock_info.get_financials(ticker)
@@ -47,8 +53,10 @@ def extract_financials(ticker):
     return formatted_financial_periods
 
 def extract_quote_data(ticker):
-    
-    quote_data = yf_stock_info.get_quote_table(ticker)
+    try:
+        quote_data = yf_stock_info.get_quote_table(ticker)
+    except:
+        return None
 
     # remove unnessary data
     quote_data.pop('symbol', None)
@@ -86,20 +94,33 @@ def get_price(ticker):
 def get_rss_news(ticker):
     return yf_news.get_yf_rss(ticker)
 
+def extract_historical_price_data(ticker, start_date, end_date):
+    prices = []
+    price_data = yf_stock_info.get_data(ticker).to_dict()
+    for price_date in price_data['close']:
+        if str(price_date)[:10] >= start_date and str(price_date)[:10] <= end_date:
+            prices.append({
+                'value': price_data['close'][price_date],
+                'date': str(price_date)[:10]
+            })
+
+    return prices
 # ------------ Helper Functions -------------- #
 
 def convert_currency(amount):
 
-    if not amount:
+    try:
+        value = float(amount[:-1])
+
+        aplifiers = {
+            'G': 1000,
+            'M': 1000000,
+            'B': 1000000000,
+            'T': 1000000000000
+        }
+
+        return value * aplifiers.get(amount[-1])
+    
+    except:
         return amount
 
-    value = float(amount[:-1])
-
-    aplifiers = {
-        'G': 1000,
-        'M': 1000000,
-        'B': 1000000000,
-        'T': 1000000000000
-    }
-
-    return value * aplifiers.get(amount[-1])
