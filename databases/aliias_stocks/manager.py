@@ -34,7 +34,7 @@ if __name__ == '__main__':
     
     command = sys.argv[1]
 
-    setup_network_connection('aliias')
+    setup_heroku_mongo_connection()
 
     if command == 'earnings_calender':
         if len(sys.argv) > 2:
