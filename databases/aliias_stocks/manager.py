@@ -43,7 +43,7 @@ if __name__ == '__main__':
             date = str(datetime.date.today() - datetime.timedelta(days=1))
         data_pipeline.collect_earnings(date)
 
-    if command == 'collect_current_prices':
+    if command == 'collect_ticker_prices':
         if len(sys.argv) > 2:
             date = sys.argv[2]
         else:

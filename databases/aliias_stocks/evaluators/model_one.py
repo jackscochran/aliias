@@ -193,6 +193,10 @@ def get_ticker_data(ticker, date):
     share_price = company.get_price(date)
     if share_price is None:
         share_price = company.get_latest_price()
+    
+    if share_price is None:
+        print('Insufficent data for rating, Could not find price data for ' + ticker + ' on or before the date ' + date)
+        return
 
     raw_quote_data = company.get_quote_data(date)
 
@@ -200,8 +204,9 @@ def get_ticker_data(ticker, date):
         raw_quote_data = company.get_latest_quote_data()
 
     if raw_quote_data is None:
-        print('Insufficent data for rating, Could not find quote data for ' + ticker + ' on the date ' + date)
+        print('Insufficent data for rating, Could not find quote data for ' + ticker + ' on or before the date ' + date)
         return
+
     quote_data = {
         'market_cap': raw_quote_data.data.get('marketCap', 1),
         'eps': raw_quote_data.data.get('epsTtm', 1)
@@ -211,7 +216,7 @@ def get_ticker_data(ticker, date):
 
         financials = company.get_financials(date, 12)
         if financials == None:
-            print('Insufficent data for rating, Could not find financials for ' + ticker + ' on the date ' + date)
+            print('Insufficent data for rating, Could not find financials for ' + ticker + ' on or before the date ' + date)
             return None
 
         data[years_back] = {}
