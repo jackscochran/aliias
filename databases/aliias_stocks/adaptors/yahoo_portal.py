@@ -96,7 +96,13 @@ def get_rss_news(ticker):
 
 def extract_historical_price_data(ticker, start_date, end_date):
     prices = []
-    price_data = yf_stock_info.get_data(ticker).to_dict()
+
+    try:
+        price_data = yf_stock_info.get_data(ticker).to_dict()
+
+    except:
+        return prices 
+
     for price_date in price_data['close']:
         if str(price_date)[:10] >= start_date and str(price_date)[:10] <= end_date:
             prices.append({

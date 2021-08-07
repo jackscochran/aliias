@@ -3,7 +3,7 @@ import mongoengine
 class Quote(mongoengine.Document):
     ticker = mongoengine.StringField(required=True)
     date = mongoengine.StringField(required=True)
-    data = mongoengine.DictField()
+    data = mongoengine.DictField(required=True)
 
     meta = {
         'db_alias': 'core',

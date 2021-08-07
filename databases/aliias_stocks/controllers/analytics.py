@@ -2,6 +2,8 @@ import adaptors.company as company_adaptor
 import manager
 import numpy as np
 import matplotlib.pyplot as plt
+import helpers.timeline as timeline
+import datetime
 
 def calculate_correlation(period):
 
@@ -12,7 +14,7 @@ def calculate_correlation(period):
             if evaluation.evaluator_name not in plots.keys():
                 plots[evaluation.evaluator_name] = {'rating': [], 'growth': []}
             
-            growth = company.performance(evaluation.date, period)
+            growth = company.performance(timeline.change_months(str(datetime.date.today()), -6), period)
 
             if growth:
 

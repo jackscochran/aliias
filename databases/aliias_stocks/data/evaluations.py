@@ -2,13 +2,15 @@ import mongoengine
 import datetime
 
 class Evaluation(mongoengine.Document):
-    ticker = mongoengine.StringField()
-    evaluator_name = mongoengine.StringField()
-    rating = mongoengine.FloatField()
-    date = mongoengine.StringField()
-    inputs = mongoengine.ListField()
+    ticker = mongoengine.StringField(required=True)
+    evaluator_name = mongoengine.StringField(required=True)
+    rating = mongoengine.FloatField(required=True)
+    date = mongoengine.StringField(required=True)
 
     meta = {
         'db_alias': 'core',
-        'collection': 'evaluations'
+        'collection': 'evaluations',
+        'indexes': [
+            {'fields': ('ticker', 'evaluator_name', 'date'), 'unique': True}
+        ]
     }

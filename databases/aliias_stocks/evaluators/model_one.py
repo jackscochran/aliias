@@ -11,14 +11,9 @@ import datetime
 # Local application imports
 import adaptors.company as company_adaptor
 import adaptors.evaluation as evaluation_adaptor
-import evaluators.abstract_evaluator as abstract_evaluator
 
-class ModelOne(abstract_evaluator.Evaluator):
-    def create_new_version(self):
-        self.name = 'modelOne'
-        return super().create_new_version()
 
-    def evaluate_ticker(self, ticker, date):
+def evaluate_ticker(ticker, date):
         if ticker[-1].upper() == 'F' and len(ticker) == 5: 
             # foreign stock, does not compute with model one
             return
@@ -36,10 +31,10 @@ class ModelOne(abstract_evaluator.Evaluator):
         evaluation_adaptor.add_evaluation(
             ticker=ticker,
             date=date,
-            evaluator_name=self.name,
+            evaluator_name='modelOne',
             rating=rating,
-            inputs=data
         )
+
 
 # -------- EVALUATION FUNCTIONS -------- #
 
@@ -258,15 +253,6 @@ def get_ticker_data(ticker, date):
 
     return data
 
-def evaluate_and_record(ticker, date):
-
-    model = ModelOne.objects().order_by('-version').first()
-
-    if model == None:
-        model = ModelOne().create_new_version()
-  
-    model.evaluate_ticker(ticker, date)
-
 # ---------- HELPER FUNCTIONS -----------#
 
 def decriment_year(date):
@@ -276,10 +262,10 @@ def decriment_year(date):
 
     return date[0] + '-' + date[1] + '-' + date[2]
 
-
 def increment_year(date):
     date = date.split('-')
 
     date[0] = str(int(date[0]) - 1)
 
     return date[0] + '-' + date[1] + '-' + date[2]
+

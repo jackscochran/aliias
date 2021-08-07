@@ -8,13 +8,15 @@ import adaptors.evaluation as evaluation_adaptor
 import controllers.loading_functions as loading_functions
 import datetime
 import controllers.analytics as analytics
+import adaptors.portfolio as portfolio_adaptor
 
 DATE = '2021-01-01'
-db_manager.setup_local_connection('Test')
-data_pipeline.iterate_date_range(DATE, str(datetime.date.today()))
+db_manager.setup_network_connection('aliias')
+# portfolio_adaptor.get_current_board().challenge()
+
 
 # data_pipeline.collect_earnings(DATE)
-print(analytics.calculate_correlation(6))
+print(analytics.calculate_correlation(5))
 
 # class EarningsDateScrape(unittest.TestCase):
     

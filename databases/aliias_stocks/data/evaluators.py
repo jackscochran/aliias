@@ -1,9 +1,11 @@
 import mongoengine
 
 class Evaluator(mongoengine.Document):
-    name = mongoengine.StringField()
+    name = mongoengine.StringField(required=True, unique=True)
+    date_created = mongoengine.StringField(required=True)
 
     meta = {
-        'db_alias': 'core',
+        'allow_inheritance': True, 
+        'db_alias': 'core', 
         'collection': 'evaluators'
     }

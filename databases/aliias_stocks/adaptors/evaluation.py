@@ -6,7 +6,7 @@ mondoDB database
 
 from data import evaluations 
 
-def add_evaluation(ticker, date, rating, evaluator_name, inputs):
+def add_evaluation(ticker, date, rating, evaluator_name):
     ticker = ticker.upper()
 
     evaluation = evaluations.Evaluation.objects(ticker=ticker, date=date, evaluator_name=evaluator_name).first()
@@ -18,21 +18,12 @@ def add_evaluation(ticker, date, rating, evaluator_name, inputs):
         evaluation.evaluator_name = evaluator_name
         
     evaluation.rating = rating
-    evaluation.inputs = inputs
     evaluation.save() 
 
+def get_top_evaluations(evaluator_name, n):
+    top_evaluations = evaluations.Evaluation.objects(evaluator_name=evaluator_name).order_by('-rating')[:n] 
+        
+    return top_evaluations
 
-def get_portfolio():
 
-    num_of_results = 25
-    portfolio = []
-    
-    top_ratings = evaluations.Evaluation.objects().order_by('-rating')
-    for evaluation in top_ratings:
-        if len(portfolio) >= num_of_results:
-            break
 
-        if evaluation not in portfolio:
-            portfolio.append(evaluation.ticker)
-
-    return portfolio

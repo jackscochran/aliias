@@ -5,6 +5,7 @@ data object model
 
 # Standard libary imports
 import datetime
+import helpers.timeline as timeline
 
 # Third party imports 
 import mongoengine
@@ -46,7 +47,7 @@ class Company(mongoengine.Document):
 
     def performance(self, start, period):
 
-        future_value = self.get_price(change_months(start, period))
+        future_value = self.get_price(timeline.change_months(start, period))
         current_value = self.get_price(start)
 
         if future_value and current_value:
@@ -56,7 +57,7 @@ class Company(mongoengine.Document):
 
     def revenue_growth(self, start, period):
 
-        future_financials = self.get_financials(change_months(start, period), period)
+        future_financials = self.get_financials(timeline.change_months(start, period), period)
         current_financials = self.get_financials(start, period)
 
         if future_financials != current_financials:
@@ -72,11 +73,3 @@ class Company(mongoengine.Document):
         'db_alias': 'core',
         'collection': 'companies'
     }
-
-def change_months(date, months):
-    date = date.split('-')
-
-    date[0] = str(int(date[0]) + int(months/12))
-    date[1] = str(int(date[1]) + months%12)
-
-    return date[0] + '-' + date[1] + '-' + date[2]

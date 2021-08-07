@@ -21,14 +21,15 @@ import sys
 
 # Local application imports
 import adaptors.yahoo_portal as yahoo_portal
-import manager as db_manager
-import evaluators.model_one as model_one
 import adaptors.financial_period as financial_period_adaptor
 import adaptors.quote as quote_adaptor
 import adaptors.daily_price as daily_price_adaptor
 import adaptors.evaluation as evaluation_adaptor
 import adaptors.company as company_adaptor
 import adaptors.earnings_date as earnings_date_adaptor
+import adaptors.portfolio as portfolio_adaptor
+import adaptors.evaluator as evaluator_adaptor
+import helpers.timeline as timeline
 
 
 # ---------- HELPER FUNCTIONS --------- #
@@ -53,8 +54,14 @@ def collect_and_save_price(ticker, date):
         price = price_object[0]['value']
     daily_price_adaptor.add_price(ticker, date, price)
 
-def collect_historical_price_data(ticker, start_date, end_date):
-    for price in yahoo_portal.extract_historical_price_data(ticker, start_date, end_date):
+def collect_historical_price_data(ticker, start_date):
+    today = str(datetime.date.today())
+    half_year_ago = timeline.change_months(today, -6)
+
+    if start_date > half_year_ago: # scrape prices from at least 6 months ago
+        start_date = half_year_ago
+
+    for price in yahoo_portal.extract_historical_price_data(ticker, start_date, today):
         daily_price_adaptor.add_price(
             ticker=ticker,
             date=price['date'],
@@ -65,9 +72,14 @@ def collect_historical_price_data(ticker, start_date, end_date):
 
 def collect_earnings(date):
     tickers = []
+    
     count = 0
     print('scraping ' + date + ' on yahoo earnings calender...' )
     companies = [company for company in yahoo_portal.earnings_on(date) if company[0][-1].upper != 'F']
+
+    # add new earnings calender date to the datebase
+    tickers = [company[0] for company in companies]
+    earnings_date_adaptor.add_earnings_date(tickers, date) 
     print('earnings calender scrape complete')
     print('scraping and saving ticker data...')
     for company in companies:
@@ -75,15 +87,15 @@ def collect_earnings(date):
         count += 1
         print(company_name + '(' + ticker + ') - ' + str(count) + ' / ' + str(len(companies)))#display progress
         company_adaptor.add_company(ticker, company_name)
-        collect_historical_price_data(ticker, date, str(datetime.date.today()))
+        collect_historical_price_data(ticker, date)
         collect_and_save_quote(ticker)
         collect_and_save_financials(ticker)
-        model_one.evaluate_and_record(ticker, date)
+        evaluator_adaptor.evaluate(ticker, date, 'modelOne')
 
     print('Earnings Calender scrape completed. ' + str(count) + ' Tickers collected')
-    # add new earnings calender date to the datebase
-    tickers = [company[0] for company in companies]
-    earnings_date_adaptor.add_earnings_date(tickers, date)  
+
+    print('challenging current portfolios')
+    portfolio_adaptor.get_current_board().challenge()
 
 def collect_ticker_prices(date):
     print('Collecting Prices for tickers in database')
