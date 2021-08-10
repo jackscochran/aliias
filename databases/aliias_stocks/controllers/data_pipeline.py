@@ -52,7 +52,9 @@ def collect_and_save_price(ticker, date):
         price = yahoo_portal.get_price(ticker)
     else:
         price = price_object[0]['value']
-    daily_price_adaptor.add_price(ticker, date, price)
+
+    if price is not None:
+        daily_price_adaptor.add_price(ticker, date, price)
 
 def collect_historical_price_data(ticker, start_date):
     today = str(datetime.date.today())
@@ -82,6 +84,7 @@ def collect_earnings(date):
     earnings_date_adaptor.add_earnings_date(tickers, date) 
     print('earnings calender scrape complete')
     print('scraping and saving ticker data...')
+    
     for company in companies:
         ticker, company_name = company
         count += 1

@@ -89,7 +89,12 @@ def extract_quote_data(ticker):
     return quote
 
 def get_price(ticker):
-    return yf_stock_info.get_live_price(ticker) 
+    try:
+        return yf_stock_info.get_live_price(ticker) 
+    except AssertionError as err:
+         # if err['chart']['result']['description'] == 'No data found, symbol may be delisted':
+        #     delete?
+        return None
 
 def get_rss_news(ticker):
     return yf_news.get_yf_rss(ticker)

@@ -21,9 +21,21 @@ def add_evaluation(ticker, date, rating, evaluator_name):
     evaluation.save() 
 
 def get_top_evaluations(evaluator_name, n):
-    top_evaluations = evaluations.Evaluation.objects(evaluator_name=evaluator_name).order_by('-rating')[:n] 
+    top_evaluations = evaluations.Evaluation.objects(evaluator_name=evaluator_name).order_by('-rating')
+
+    accounted_tickers = []
+    return_evaluations = []
+
+    for evaluation in top_evaluations:
         
-    return top_evaluations
+        if evaluation.ticker not in accounted_tickers:
+            accounted_tickers.append(evaluation.ticker)
+            return_evaluations.append(evaluation)
+
+        if len(return_evaluations) == n:
+            break
+        
+    return return_evaluations
 
 
 

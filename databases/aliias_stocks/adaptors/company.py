@@ -5,7 +5,7 @@ mondoDB database
 """
 
 from data.companies import Company
-
+import random
 
 # ----------- ADDER(also setter) FUNCTIONS--------- #
 
@@ -30,8 +30,22 @@ def get_company(ticker):
 def get_financials(ticker, period):                                                                                                         
     return get_company(ticker).get_latest_financials(period)
 
+def get_all_tickers():
+    return [company.ticker for company in Company.objects]
+
 def get_all_companies():
     return Company.objects
 
-def get_all_tickers():
-    return [company.ticker for company in Company.objects]
+def get_n_companies(n):
+    return Company.objects[:n]
+
+def get_n_random_companies(n):
+    n_companies = []
+    indexes_used = []
+    company_objects = get_all_companies()
+    for i in range(n):
+        index = random.randint(0, len(company_objects))
+        indexes_used.append(index)
+        n_companies.append(Company.objects[index])
+
+    return n_companies

@@ -34,6 +34,7 @@ if __name__ == '__main__':
     
     command = sys.argv[1]
 
+
     setup_network_connection('aliias')
 
     if command == 'earnings_calender':
