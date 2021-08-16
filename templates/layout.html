@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!--  Meta Data -->
+        <meta charset="UTF-8"> <!--Don't know what exactly to set this too-->
+        
+        <!-- CSS imports -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="../static/css/global/global.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/pages/layout.css">
+
+        <link rel="icon" type="image/png" href="../static/img/favicons/favicon-32.png"/>
+
+        {% block cssImports %}
+
+        {% endblock %}
+        <!-- Javascript imports -->
+        <script src="jquery-3.5.1.min.js"></script>
+        
+        <title>ALIIAS Investments - {% block title %}{% endblock %}</title>
+
+    </head>
+    <body>
+        <nav id="navbar">
+              
+              <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                      <li><img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS"><li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                  <ul class="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Porfolio</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><input type="search" placeholder="AAPL..."></li>
+                    <li><button type="button" class="button secondary hollow">Search</button></li>
+                  </ul>
+                </div>
+              </div>
+
+        </nav>
+
+        {% block body %}
+        {% endblock %}
+
+        <div class="row">
+          
+        </div>
+    </body>
+    
+</html>

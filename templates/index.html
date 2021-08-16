@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block cssImports %}
+<link rel="stylesheet" type="text/css" href="../static/css/pages/index.css">
+{% endblock %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+
+<div class = "row">
+    <div class="index__top-banner columns grid-x small-offset-1 small-10">
+        <div class="cell small-12 medium-12 large-7 index__top-banner--text-block rounded-25">
+            <p class="">
+                From in-depth stock analysis to high performance investment algorithsms, we strive to create certainties for our customers.
+            </p>
+            <button class="button large secondary-yellow rounded-25">Register now</button>
+        </div>
+</div>
+
+<div class="row">
+    <div class="columns small-offset-3 dark-line"></div>
+    <div class="columns small-offset-3 light-line"></div>
+</div>
+
+
+<div class="row">
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-12 medium-offset-3 large-2 medium-6">
+            <div class="index__header-box card " >
+                <h2>Investing <br>Portfolio</h2>
+            </div>
+            <p class="text-center">Track our top 25 highest rated stocks based on the power of Artificial Intelligence and quantitative analysis.</p>
+        </div>
+        <div class=" cell small-12 large-2 large-offset-0 medium-6 medium-offset-3">
+            <div class="index__header-box--dark card" >
+                <h2>Stock <br>Analysis</h2>
+            </div>
+            <p class="text-center">Have access to stock rating based on the power of Artificial Intelligence and quantitative analysis.</p>
+        </div>
+        <div class=" cell small-12 large-2 large-offset-0 medium-6 medium-offset-3">
+            <div class="index__header-box card" >
+                <h2>Stock <br>Data</h2>
+            </div>
+            <p class="text-center">View company financials and financials in the context of our ratings. </p>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="index__mid-banner">
+        <h2 class="text-center">A.I Powered Investment Analysis In Your Pocket </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="grid-x">
+        <div class="cell small-12 medium-offset-3 large-2 medium-6">
+            <div class="index__account-box--light card " >
+                <h3>Free Account</h3>
+                <br>
+                <button class="button small secondary-orange--light rounded-25">Register</button>
+            </div>
+        </div>
+        <div class=" cell small-12 large-2 large-offset-0 medium-6 medium-offset-3">
+            <div class="index__account-box card" >
+                <h3>Data Account</h3>
+                <br>
+                <button class="button small secondary-orange--light rounded-25">Pre-register</button>
+            </div>
+        </div>
+        <div class=" cell small-12 large-2 large-offset-0 medium-6 medium-offset-3">
+            <div class="index__account-box--dark card" >
+                <h3>Full Package</h3>
+                <br>
+                <button class="button small secondary-orange--light rounded-25">Pre-register</button>
+            </div>
+            </div>
+
+    </div>
+</div>
+
+{% endblock %}

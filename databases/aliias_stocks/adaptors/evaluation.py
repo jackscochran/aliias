@@ -37,5 +37,7 @@ def get_top_evaluations(evaluator_name, n):
         
     return return_evaluations
 
+def total_evaluations(modal_name):
+    return evaluations.Evaluation.objects(evaluator_name=modal_name).count()
 
 

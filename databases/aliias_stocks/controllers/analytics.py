@@ -7,9 +7,17 @@ import helpers.timeline as timeline
 import datetime
 import scipy.stats as scipy_stats
 
+# ---------- Helper Functions --------- #
+
+# ---------- Porfolio Performance Functions --------- #
+
+# ---------- Stock Performance Functions ----------#
+
+# ---------- Correlation Functions ---------- #
+
 def calculate_correlation(sample_size, period):
 
-    plots = get_performance_rating_plots([company.ticker for company in company_adaptor.get_n_random_companies(sample_size)], period)
+    plots = get_performance_rating_plots([company.ticker for company in company_adaptor.get_n_companies(sample_size)], period)
 
     correlation = scipy_stats.pearsonr(plots['modelOne']['rating'], plots['modelOne']['growth'])
     print(correlation)

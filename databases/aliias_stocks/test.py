@@ -16,7 +16,8 @@ db_manager.setup_network_connection('aliias')
 
 
 # data_pipeline.collect_earnings(DATE)
-print(analytics.get_portfolio_performance_ratings(6))
+# print(analytics.calculate_correlation(2500, 6))
+print(analytics.get_portfolio_performance_ratings(3))
 
 # class EarningsDateScrape(unittest.TestCase):
     

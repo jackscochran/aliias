@@ -81,8 +81,8 @@ def collect_earnings(date):
 
     # add new earnings calender date to the datebase
     tickers = [company[0] for company in companies]
-    earnings_date_adaptor.add_earnings_date(tickers, date) 
-    print('earnings calender scrape complete')
+    earnings_date_adaptor.add_earnings_date(tickers, date) # update to add ticker each time they have their data collected
+    print('earnings calender scrape complete') 
     print('scraping and saving ticker data...')
     
     for company in companies:

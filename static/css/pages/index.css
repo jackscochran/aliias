@@ -1,0 +1,87 @@
+
+.index__top-banner{
+    background-image: url("../../img/backgrounds/stocks-1.webp");
+    background-position: -40px -70px;
+    background-repeat: no-repeat;
+    height: 510px;
+    width: 83%;
+    background-size: auto;
+    padding: 10px 50px;
+    
+}
+
+.index__top-banner--text-block{
+    background-color: rgba(26, 26, 26, 0.6);
+    margin-top: 20px;
+    height:365px;
+    padding: 25px 25px;
+}
+
+.index__top-banner p{
+    color: #ffffff;
+    font-family: helvetica-w01-light,helvetica-w02-light,sans-serif;
+    font-size: 35px;
+    margin-bottom: 20px;
+    text-align: left;
+    opacity: 0.8;
+}
+
+.index__top-banner p:hover{
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.index__header-box, .index__header-box--dark{
+    color: #ffffff;
+    background-color: #2D3643;
+    font-family: helvetica-w01-light,helvetica-w02-light,sans-serif;
+    font-size: 35px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 60px 10px;
+}
+
+.index__header-box--dark{
+    background-color: #1E242E;
+}
+
+.dark-line{
+    border-top: 2px solid #1E242E;
+    margin-bottom: 30px;
+    width: 20%;
+}
+
+.light-line{
+    border-top: 2px solid #D8D8D8;
+    margin-bottom: 30px;
+    width: 30%;
+}
+
+.index__mid-banner{
+    padding: 35px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    background-color: #FAFAFA;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size:large;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+
+}
+
+.index__account-box, .index__account-box--light, .index__account-box--dark {
+    background-color: #D4D4D2;
+    font-family: helvetica;
+    font-size: 35px;
+    text-align: center;
+    padding: 60px 30px;
+}
+
+.index__account-box--light{
+    background-color: #F9F9F9;
+}
+
+.index__account-box--dark{
+    background-color: #414141;
+    color: #ffffff;
+}

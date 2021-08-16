@@ -1,0 +1,27 @@
+.logo{
+    width: 113px;
+}
+
+.primary-blue{
+    background-color: #75D4F9 !important;
+}
+
+.primary-black{
+    background-color: #1A1A1A !important;
+}
+
+.secondary-orange{
+    background-color: #E86517 !important;
+}
+
+.secondary-orange--light{
+    background-color: rgba(232, 101, 23, 0.8) !important;
+}
+
+.secondary-yellow{
+    background-color: #FFC412 !important;
+}
+
+.rounded-25{
+    border-radius: 25px;
+}

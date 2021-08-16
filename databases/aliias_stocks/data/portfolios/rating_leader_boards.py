@@ -5,6 +5,7 @@ import datetime
 
 class RatingLeaderBoard(portfolios.Portfolio):
     evaluator_name = mongoengine.StringField(required=True)
+    total_evaluations = mongoengine.IntField()
 
     def challenge(self):
         challengers = evaluation_adaptor.get_top_evaluations(
@@ -22,6 +23,7 @@ class RatingLeaderBoard(portfolios.Portfolio):
                 new_board.version = self.version + 1
                 new_board.date_created = str(datetime.date.today())
                 new_board.evaluator_name = self.evaluator_name
+                new_board.total_evaluations = evaluation_adaptor.total_evaluations(self.evaluator_name)
                 new_board.save()  
                 return
 
