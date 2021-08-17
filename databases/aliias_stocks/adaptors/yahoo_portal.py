@@ -91,7 +91,7 @@ def extract_quote_data(ticker):
 def get_price(ticker):
     try:
         return yf_stock_info.get_live_price(ticker) 
-    except AssertionError as err:
+    except:
          # if err['chart']['result']['description'] == 'No data found, symbol may be delisted':
         #     delete?
         return None
