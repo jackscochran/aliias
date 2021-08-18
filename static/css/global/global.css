@@ -22,8 +22,32 @@
     background-color: #FFC412 !important;
 }
 
+.color-secondary-yellow{
+    color:#FFC412;
+}
+
+.primary-green{
+    background-color: #4BB543;
+}
+
+.color-primary-green{
+    color: #4BB543;
+}
+
+.background-light-grey{
+    background-color: #F9F9F9;
+}
+
 .rounded-25{
     border-radius: 25px;
+}
+
+.rounded-5{
+    border-radius: 5px;
+}
+
+.banner{
+    padding: 100px 0px;
 }
 
 

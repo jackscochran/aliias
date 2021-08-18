@@ -16,10 +16,6 @@ body{
     width: 100%;
 }
 
-.top-bar ul{
-    
-}
-
 .top-bar ul li{
     padding: 5px;
 }
@@ -31,7 +27,7 @@ body{
 }
 
 .layout__footer{
-    margin: 100px 15% 50px 15%;
+    margin: 80px 15% 50px 15%;
 }
 
 .layout__footer p{

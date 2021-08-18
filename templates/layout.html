@@ -11,15 +11,20 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
 
         <link rel="stylesheet" type="text/css" href="../static/css/global/global.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/global/form-validation.css">
         <link rel="stylesheet" type="text/css" href="../static/css/pages/layout.css">
 
+        <!-- Icon imports -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="icon" type="image/png" href="../static/img/favicons/favicon-32.png"/>
 
-        {% block cssImports %}
+        {% block cssImports %}{% endblock %}
 
-        {% endblock %}
         <!-- Javascript imports -->
-        <script src="jquery-3.5.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="../static/js/global/form-validation.js"></script>
+
+        {% block jsImports %}{% endblock %}
         
         <title>ALIIAS Investments - {% block title %}{% endblock %}</title>
 
@@ -35,13 +40,13 @@
                 </div>
                 <div class="top-bar-right">
                   <ul class="menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Porfolio</a></li>
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><input type="search" placeholder="AAPL..."></li>
-                    <li><button type="button" class="button secondary hollow">Search</button></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/portfolio">Porfolio</a></li>
+                    <li><a href="/help">Help</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><input type="text" name="query" placeholder="AAPL..."></input></li>
+                    <li><button type="submit" action="/search" class="button secondary hollow">Search</button></li>
                   </ul>
                 </div>
               </div>

@@ -54,20 +54,7 @@ class Company(mongoengine.Document):
             return (future_value.price / current_value.price - 1)
         
         return None
-
-    def revenue_growth(self, start, period):
-
-        future_financials = self.get_financials(timeline.change_months(start, period), period)
-        current_financials = self.get_financials(start, period)
-
-        if future_financials != current_financials:
-            future_revenue = future_financials.incomeStatement.get('totalRevenue', None)
-            current_revenue = current_financials.incomeStatement.get('totalRevenue', None)
-
-            if future_revenue:
-                return future_revenue/current_revenue
-
-        return None  
+ 
 
     meta = {
         'db_alias': 'core',

@@ -1,0 +1,15 @@
+.error-msg{
+    color: #e52932;
+    margin-bottom: 30px;
+}
+
+.error-icon{
+    margin: 5px;
+    font-size: 15px;
+    position: relative;
+    top: 5px;
+}
+
+.error-field{
+    background-color: #ffedef;
+}

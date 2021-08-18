@@ -12,6 +12,29 @@ import datetime
 import adaptors.company as company_adaptor
 import adaptors.evaluation as evaluation_adaptor
 
+WEIGHTINGS = {
+    'netIncome': 3.14049035430264,
+    'ROA': 3.35787341867148,
+    'sharesOutstanding': 9.89330948577594,
+    'earningsYield': 8.59360955585488,
+    'increaseDaysSalesOutstanding': 2.17412921827518,
+    'declinesInDepreciation': 11.8823215821384,
+    'retainedEarningsToTotalAssets': 1.12945471301263,
+    'operatingCashflow': 4.95404940943786,
+    'ltDebtVsAssets': 0.432216733067582,
+    'grossMargins': 0.408198164601095,
+    'returnOnCapital': 3.86967413358317,
+    'growingDaysSalesOfInventory': 1.200997551491,
+    'salesToAssets': 3.60114685180111,
+    'returnOnTotalAssets': 14.700528329515,
+    'qualityOfEarnings':  4.53200718886259,
+    'currentRatio': 5.31267035221777,
+    'assetTurnover': 1.36950228222849,
+    'netIncomeMinusCashflow': 3.62023341625806,
+    'increasingCurrentAssetsOverRevenues': 5.77809130603686,
+    'workingCapitalToTotalAssets': 6.90517210980709,
+    'marketCapToTotalLiabilities': 3.14432384306122
+}
 
 def evaluate_ticker(ticker, date):
         if ticker[-1].upper() == 'F' and len(ticker) == 5: 
@@ -38,139 +61,10 @@ def evaluate_ticker(ticker, date):
 
 # -------- EVALUATION FUNCTIONS -------- #
 
-def rate(data):
+def rate(inputs):
     
-    if data is None:
+    if inputs is None:
         return None
-
-    inputs = {
-        'netIncome': {
-            'value': data[0].get('netIncome', 1),
-            'over': True,
-            'standard': 0,
-            'weighting': 3.14049035430264
-        },
-        'ROA': {
-            'value': (data[0].get('ebit', 1)/data[0].get('totalAssets', 1))-(data[1].get('ebit', 1)/data[1].get('totalAssets', 1)),
-            'over': True,
-            'standard': 0,
-            'weighting': 3.35787341867148
-        },
-        'sharesOutstanding': {
-            'value': -data[0].get('shareIssuance', 1)-data[0].get('shareBuyback', 1)+data[1].get('shareIssuance', 1)+data[1].get('shareBuyback', 1),
-            'over': False,
-            'standard': 00000000000000000000000000000000000000000000000000000000.1, #less than or equal to zero
-            'weighting': 9.89330948577594
-        },
-        'earningsYield': {
-            'value': data[0].get('eps', 1)/data[0].get('sharePrice', 1),
-            'over': True,
-            'standard': 0.06,
-            'weighting': 8.59360955585488
-        },
-        'increaseDaysSalesOutstanding': {
-            'value': data[0].get('netReceivables', 1)/data[0].get('revenue', 1) - data[1].get('netReceivables', 1)/data[1].get('revenue', 1) + data[1].get('netReceivables', 1)/data[1].get('revenue', 1) - data[2].get('netReceivables', 1)/data[2].get('revenue', 1),
-            'over': False,
-            'standard': 0,
-            'weighting': 2.17412921827518
-        },
-        'declinesInDepreciation': { # unsure if good or bad
-            'value': (data[0].get('depreciation', 1)-data[1].get('depreciation', 1))+(data[1].get('depreciation', 1)-data[2].get('depreciation', 1)),
-            'over': True,
-            'standard': 0,
-            'weighting': 11.8823215821384
-        },
-        'retainedEarningsToTotalAssets': {
-            'value': data[0].get('retainedEarnings', 1)/data[0].get('totalAssets', 1),
-            'over': False,
-            'standard': 1,
-            'weighting': 1.12945471301263
-        },
-        'operatingCashflow': {
-            'value': data[0].get('operatingCashflow', 1),
-            'over': True,
-            'standard': 0,
-            'weighting': 4.95404940943786
-        },
-        'ltDebtVsAssets': { # formula needs checking
-            'value': (data[0].get('longTermDebt', 1)/data[0].get('totalAssets', 1))-(data[2].get('longTermDebt', 1)/data[2].get('totalAssets', 1)), 
-            'over': False,
-            'standard': 0,
-            'weighting': 0.432216733067582
-        },
-        'grossMargins': { # formula needs checking
-            'value': ((data[0].get('operatingIncome', 1)/data[0].get('revenue', 1))-(data[2].get('operatingIncome', 1)/data[2].get('revenue', 1))),
-            'over': True,
-            'standard': 0,
-            'weighting': 0.408198164601095
-        },
-        'returnOnCapital': { # need checking
-            'value': (data[0].get('ebit', 1)/data[0].get('marketCap', 1))-(data[2].get('ebit', 1)/data[2].get('marketCap', 1)),
-            'over': True,
-            'standard': 0.01,
-            'weighting': 3.86967413358317
-        },
-        'growingDaysSalesOfInventory': {
-            'value': ((data[0].get('revenue', 1)/data[0].get('inventory', 1))- (data[2].get('revenue', 1)/data[2].get('inventory', 1))),
-            'over': True,
-            'standard': 0,
-            'weighting': 1.200997551491
-        },
-        'salesToAssets': {
-            'value': data[0].get('revenue', 1) / data[0].get('totalAssets', 1),
-            'over': False,
-            'standard': 1,
-            'weighting': 3.60114685180111
-        },
-        'returnOnTotalAssets': {
-            'value': data[0].get('ebit', 1) / data[0].get('totalAssets', 1),
-            'over': False,
-            'standard': 0.05,
-            'weighting': 14.700528329515
-        },
-        'qualityOfEarnings': {
-            'value': data[0].get('operatingIncome', 1)-(data[0].get('revenue', 1)/data[0].get('totalAssets', 1)),
-            'over': True,
-            'standard': 0,
-            'weighting': 4.53200718886259
-        },
-        'currentRatio': {
-            'value': data[0].get('currentAssets', 1) / data[0].get('currentLiabilities', 1),
-            'over': True,
-            'standard': 0,
-            'weighting': 5.31267035221777
-        },
-        'assetTurnover': { # check formula
-            'value': ((data[0].get('revenue', 1)/data[0].get('totalAssets', 1))-(data[2].get('revenue', 1)/data[2].get('totalAssets', 1))),
-            'over': True,
-            'standard': 0,
-            'weighting': 1.36950228222849,
-        },
-        'netIncomeMinusCashflow': {
-            'value': data[0].get('netIncome', 1) - data[0].get('operatingCashflow', 1),
-            'over': False,
-            'standard': 0,
-            'weighting': 3.62023341625806
-        }, # check formula
-        'increasingCurrentAssetsOverRevenues': {
-            'value': ((data[0].get('currentAssets', 1)/data[0].get('revenue', 1))-(data[2].get('currentAssets', 1)/data[2].get('revenue', 1))),
-            'over': True,
-            'standard': 0,
-            'weighting': 5.77809130603686
-        },
-        'workingCapitalToTotalAssets': {
-            'value': (data[0].get('currentAssets', 1)-data[0].get('currentLiabilities', 1))/data[0].get('totalAssets', 1),
-            'over': False,
-            'standard': 1,
-            'weighting': 6.90517210980709
-        },
-        'marketCapToTotalLiabilities': {
-            'value': data[0].get('marketCap', 1)/data[0].get('totalLiabilities', 1),
-            'over': False,
-            'standard': 1,
-            'weighting': 3.14432384306122
-        }
-    }
     
     rating = 0
 
@@ -251,7 +145,136 @@ def get_ticker_data(ticker, date):
             if financial_year[item] == 0 or financial_year[item] == None:
                 financial_year[item] = 1
 
-    return data
+    inputs = {
+        'netIncome': {
+            'value': data[0].get('netIncome', 1),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('netIncome', 0) 
+        },
+        'ROA  ': {
+            'value': (data[0].get('ebit', 1)/data[0].get('totalAssets', 1))-(data[1].get('ebit', 1)/data[1].get('totalAssets', 1)),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('ROA', 0) 
+        },
+        'sharesOutstanding': {
+            'value': -data[0].get('shareIssuance', 1)-data[0].get('shareBuyback', 1)+data[1].get('shareIssuance', 1)+data[1].get('shareBuyback', 1),
+            'over': False,
+            'standard': 00000000000000000000000000000000000000000000000000000000.1, #less than or equal to zero
+            'weighting': WEIGHTINGS.get('sharesOutstanding', 0) 
+        },
+        'earningsYield': {
+            'value': data[0].get('eps', 1)/data[0].get('sharePrice', 1),
+            'over': True,
+            'standard': 0.06,
+            'weighting': WEIGHTINGS.get('earningsYield', 0) 
+        },
+        'increaseDaysSalesOutstanding': {
+            'value': data[0].get('netReceivables', 1)/data[0].get('revenue', 1) - data[1].get('netReceivables', 1)/data[1].get('revenue', 1) + data[1].get('netReceivables', 1)/data[1].get('revenue', 1) - data[2].get('netReceivables', 1)/data[2].get('revenue', 1),
+            'over': False,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('increaseDaysSalesOutstanding', 0) 
+        },
+        'declinesInDepreciation': { # unsure if good or bad
+            'value': (data[0].get('depreciation', 1)-data[1].get('depreciation', 1))+(data[1].get('depreciation', 1)-data[2].get('depreciation', 1)),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('declinesInDepreciation', 0) 
+        },
+        'retainedEarningsToTotalAssets': {
+            'value': data[0].get('retainedEarnings', 1)/data[0].get('totalAssets', 1),
+            'over': False,
+            'standard': 1,
+            'weighting': WEIGHTINGS.get('retainedEarningsToTotalAssets', 0) 
+        },
+        'operatingCashflow': {
+            'value': data[0].get('operatingCashflow', 1),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('operatingCashflow', 0) 
+        },
+        'ltDebtVsAssets': { # formula needs checking
+            'value': (data[0].get('longTermDebt', 1)/data[0].get('totalAssets', 1))-(data[2].get('longTermDebt', 1)/data[2].get('totalAssets', 1)), 
+            'over': False,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('ltDebtVsAssets', 0) 
+        },
+        'grossMargins': { # formula needs checking
+            'value': ((data[0].get('operatingIncome', 1)/data[0].get('revenue', 1))-(data[2].get('operatingIncome', 1)/data[2].get('revenue', 1))),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('grossMargins', 0) 
+        },
+        'returnOnCapital': { # need checking
+            'value': (data[0].get('ebit', 1)/data[0].get('marketCap', 1))-(data[2].get('ebit', 1)/data[2].get('marketCap', 1)),
+            'over': True,
+            'standard': 0.01,
+            'weighting': WEIGHTINGS.get('returnOnCapital', 0) 
+        },
+        'growingDaysSalesOfInventory': {
+            'value': ((data[0].get('revenue', 1)/data[0].get('inventory', 1))- (data[2].get('revenue', 1)/data[2].get('inventory', 1))),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('growingDaysSalesOfInventory', 0) 
+        },
+        'salesToAssets': {
+            'value': data[0].get('revenue', 1) / data[0].get('totalAssets', 1),
+            'over': False,
+            'standard': 1,
+            'weighting': WEIGHTINGS.get('salesToAssets', 0)
+        },
+        'returnOnTotalAssets': {
+            'value': data[0].get('ebit', 1) / data[0].get('totalAssets', 1),
+            'over': False,
+            'standard': 0.05,
+            'weighting': WEIGHTINGS.get('returnOnTotalAssets', 0)
+        },
+        'qualityOfEarnings': {
+            'value': data[0].get('operatingIncome', 1)-(data[0].get('revenue', 1)/data[0].get('totalAssets', 1)),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('qualityOfEarnings', 0)
+        },
+        'currentRatio': {
+            'value': data[0].get('currentAssets', 1) / data[0].get('currentLiabilities', 1),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('currentRatio', 0) 
+        },
+        'assetTurnover': { # check formula
+            'value': ((data[0].get('revenue', 1)/data[0].get('totalAssets', 1))-(data[2].get('revenue', 1)/data[2].get('totalAssets', 1))),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('assetTurnover', 0) ,
+        },
+        'netIncomeMinusCashflow': {
+            'value': data[0].get('netIncome', 1) - data[0].get('operatingCashflow', 1),
+            'over': False,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('netIncomeMinusCashflow', 0) 
+        }, # check formula
+        'increasingCurrentAssetsOverRevenues': {
+            'value': ((data[0].get('currentAssets', 1)/data[0].get('revenue', 1))-(data[2].get('currentAssets', 1)/data[2].get('revenue', 1))),
+            'over': True,
+            'standard': 0,
+            'weighting': WEIGHTINGS.get('increasingCurrentAssetsOverRevenues', 0) 
+        },
+        'workingCapitalToTotalAssets': {
+            'value': (data[0].get('currentAssets', 1)-data[0].get('currentLiabilities', 1))/data[0].get('totalAssets', 1),
+            'over': False,
+            'standard': 1,
+            'weighting': WEIGHTINGS.get('workingCapitalToTotalAssets', 0)
+        },
+        'marketCapToTotalLiabilities': {
+            'value': data[0].get('marketCap', 1)/data[0].get('totalLiabilities', 1),
+            'over': False,
+            'standard': 1,
+            'weighting': WEIGHTINGS.get('marketCapToTotalLiabilities', 0) 
+        }
+    }
+
+    return inputs
 
 # ---------- HELPER FUNCTIONS -----------#
 

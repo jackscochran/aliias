@@ -5,6 +5,7 @@ mondoDB database
 """
 
 from data import daily_prices
+from controllers import data_pipeline
 
 def add_price(ticker, date, price):
     daily_price =  daily_prices.DailyPrice.objects(ticker=ticker, date=date).first()
@@ -18,7 +19,14 @@ def add_price(ticker, date, price):
         daily_price.save()
 
 def get_price(ticker, date):
-    return daily_prices.DailyPrice.objects(ticker=ticker, date=date).first()
+    price = daily_prices.DailyPrice.objects(ticker=ticker, date=date).first()
+
+    if price is None:
+        price = data_pipeline.collect_and_save_price(ticker, date)
+    else:
+        price = price.price
+
+    return price
 
 def exists(ticker, date):
     return daily_prices.DailyPrice.objects(ticker=ticker, date=date).first() is not None

@@ -9,15 +9,15 @@ import controllers.loading_functions as loading_functions
 import datetime
 import controllers.analytics as analytics
 import adaptors.portfolio as portfolio_adaptor
+import helpers.timeline as timeline
 
-DATE = '2021-01-01'
+DATE = '2021-08-17'
 db_manager.setup_network_connection('aliias')
 # portfolio_adaptor.get_current_board().challenge()
 
 
 # data_pipeline.collect_earnings(DATE)
-# print(analytics.calculate_correlation(2500, 6))
-print(analytics.get_portfolio_performance_ratings(6))
+print(analytics.create_weightings(1000, timeline.change_months(DATE, -12), timeline.change_months(DATE, -6)))
 
 # class EarningsDateScrape(unittest.TestCase):
     

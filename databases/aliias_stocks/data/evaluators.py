@@ -9,3 +9,6 @@ class Evaluator(mongoengine.Document):
         'db_alias': 'core', 
         'collection': 'evaluators'
     }
+
+class RegressionModel(Evaluator):
+    weightings = mongoengine.DictField()

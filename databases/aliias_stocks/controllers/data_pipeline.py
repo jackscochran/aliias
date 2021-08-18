@@ -48,13 +48,12 @@ def collect_and_save_quote(ticker):
 def collect_and_save_price(ticker, date):
     price_object = yahoo_portal.extract_historical_price_data(ticker, date, date)
 
-    if len(price_object) == 0:
-        price = yahoo_portal.get_price(ticker)
-    else:
+    if len(price_object) != 0:
         price = price_object[0]['value']
+        if price is not None:
+            daily_price_adaptor.add_price(ticker, date, price)
 
-    if price is not None:
-        daily_price_adaptor.add_price(ticker, date, price)
+        return price
 
 def collect_historical_price_data(ticker, start_date):
     today = str(datetime.date.today())

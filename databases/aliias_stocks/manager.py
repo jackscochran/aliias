@@ -22,8 +22,8 @@ def setup_heroku_mongo_connection():
     mongoengine.connect(host='mongodb+srv://' + os.environ.get('DB_ACCOUNT') + ':' + os.environ.get('DB_PASSWORD') + '@realmcluster.zudeo.mongodb.net/' + os.environ.get('DB_NAME') + '?retryWrites=true&w=majority', alias='core')
 
 def setup_network_connection(database):
-    account_name = 'webApp'
-    account_password = 't3NMqHZh2Jn1gNTO'
+    account_name = ''
+    account_password = ''
     mongoengine.connect(host='mongodb+srv://' + account_name + ':' + account_password + '@realmcluster.zudeo.mongodb.net/' + database + '?retryWrites=true&w=majority', alias='core')
 
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     command = sys.argv[1]
 
 
-    setup_network_connection('aliias')
+    setup_heroku_mongo_connection()
 
     if command == 'earnings_calender':
         if len(sys.argv) > 2:
