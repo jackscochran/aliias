@@ -20,16 +20,16 @@ import sys
 # Third party imports -- None
 
 # Local application imports
-import adaptors.yahoo_portal as yahoo_portal
-import adaptors.financial_period as financial_period_adaptor
-import adaptors.quote as quote_adaptor
-import adaptors.daily_price as daily_price_adaptor
-import adaptors.evaluation as evaluation_adaptor
-import adaptors.company as company_adaptor
-import adaptors.earnings_date as earnings_date_adaptor
-import adaptors.portfolio as portfolio_adaptor
-import adaptors.evaluator as evaluator_adaptor
-import helpers.timeline as timeline
+from ..adaptors import yahoo_portal as yahoo_portal
+from ..adaptors import financial_period as financial_period_adaptor
+from ..adaptors import quote as quote_adaptor
+from ..adaptors import daily_price as daily_price_adaptor
+from ..adaptors import evaluation as evaluation_adaptor
+from ..adaptors import company as company_adaptor
+from ..adaptors import earnings_date as earnings_date_adaptor
+from ..adaptors import portfolio as portfolio_adaptor
+from ..adaptors import evaluator as evaluator_adaptor
+from ..helpers import timeline as timeline
 
 
 # ---------- HELPER FUNCTIONS --------- #
@@ -102,25 +102,22 @@ def collect_earnings(date):
 def collect_ticker_prices(date):
     print('Collecting Prices for tickers in database')
     print('Collecting price for: ')
+    count = 0
     for ticker in company_adaptor.get_all_tickers():
-        print(ticker)
+        count +=1 
+        print(ticker + ' ' + count)
         if not daily_price_adaptor.exists(ticker, date):
             collect_and_save_price(ticker, date)
 
-def iterate_date_range(start, end):
-    
-    start = start.split('-')
-    start_date = datetime.date(int(start[0]), int(start[1]), int(start[2]))
-    end = end.split('-')
-    end_date = datetime.date(int(end[0]), int(end[1]), int(end[2]))
-
-    while start_date < end_date:
-        # collect_ticker_prices(str(start_date))
-        collect_earnings(str(start_date))
-        start_date += datetime.timedelta(days=1)
-
-
-
+def collect_quote_data(date):
+    print('Collecting quote data for tickers in database')
+    print('Collecting quote data for: ')
+    count = 0
+    for ticker in company_adaptor.get_all_tickers():
+        count +=1 
+        print(ticker + ' ' + count)
+        if not quote_adaptor.exists(ticker, date):
+            collect_and_save_quote(ticker, date)
 
 
     

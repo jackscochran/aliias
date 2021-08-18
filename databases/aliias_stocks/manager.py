@@ -11,9 +11,6 @@ import sys
 # Third party imports -- None
 import mongoengine
 
-# Local application imports
-import controllers.data_pipeline as data_pipeline
-import controllers.loading_functions as loading_functions
 
 def setup_local_connection(database):
     mongoengine.connect(db=database, alias='core', host='localhost:27017')
@@ -22,8 +19,8 @@ def setup_heroku_mongo_connection():
     mongoengine.connect(host='mongodb+srv://' + os.environ.get('DB_ACCOUNT') + ':' + os.environ.get('DB_PASSWORD') + '@realmcluster.zudeo.mongodb.net/' + os.environ.get('DB_NAME') + '?retryWrites=true&w=majority', alias='core')
 
 def setup_network_connection(database):
-    account_name = ''
-    account_password = ''
+    account_name = 'webApp'
+    account_password = 'eoAgrFCjrV5r6C2C'
     mongoengine.connect(host='mongodb+srv://' + account_name + ':' + account_password + '@realmcluster.zudeo.mongodb.net/' + database + '?retryWrites=true&w=majority', alias='core')
 
 
@@ -32,10 +29,16 @@ def setup_network_connection(database):
 
 if __name__ == '__main__':
     
+    # Local application imports
+    import controllers.data_pipeline as data_pipeline
+    import controllers.loading_functions as loading_functions
+
+
     command = sys.argv[1]
 
+    setup_network_connection('aliias')
+    data_pipeline.collect_quote_data('2021-08-17')
 
-    setup_heroku_mongo_connection()
 
     if command == 'earnings_calender':
         if len(sys.argv) > 2:
@@ -52,6 +55,14 @@ if __name__ == '__main__':
             date = str(datetime.date.today() - datetime.timedelta(days=1))
 
         data_pipeline.collect_ticker_prices(date)
+
+    if command == 'collect_quote_data':
+        if len(sys.argv) > 2:
+            date = sys.argv[2]
+        else:
+            date = str(datetime.date.today() - datetime.timedelta(days=1))
+
+        data_pipeline.collect_quote_data(date)
 
     if command == 'load_price_and_evaluate_earnings':
         loading_functions.load_price_and_evaluate_earnings()

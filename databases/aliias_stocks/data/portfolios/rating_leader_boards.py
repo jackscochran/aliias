@@ -1,6 +1,6 @@
-import data.portfolios.portfolios as portfolios
+from ...data.portfolios import portfolios
 import mongoengine
-import adaptors.evaluation as evaluation_adaptor
+from ...adaptors import evaluation as evaluation_adaptor
 import datetime
 
 class RatingLeaderBoard(portfolios.Portfolio):

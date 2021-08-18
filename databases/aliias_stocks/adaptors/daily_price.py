@@ -4,8 +4,8 @@ interact with the daily pirces collection in the
 mondoDB database
 """
 
-from data import daily_prices
-from controllers import data_pipeline
+from ..data import daily_prices
+from ..controllers import data_pipeline
 
 def add_price(ticker, date, price):
     daily_price =  daily_prices.DailyPrice.objects(ticker=ticker, date=date).first()

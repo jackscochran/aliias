@@ -5,16 +5,16 @@ data object model
 
 # Standard libary imports
 import datetime
-import helpers.timeline as timeline
+from ..helpers import timeline
 
 # Third party imports 
 import mongoengine
 
 # Local application imports
-import data.financial_periods as financial_periods
-import data.daily_prices as daily_prices
-import data.evaluations as evaluations
-import data.quotes as quotes
+from ..data import financial_periods as financial_periods
+from ..data import daily_prices as daily_prices
+from ..data import evaluations as evaluations
+from ..data import quotes as quotes
 
 
 class Company(mongoengine.Document):
@@ -38,6 +38,9 @@ class Company(mongoengine.Document):
 
     def get_evaluations(self):
         return evaluations.Evaluation.objects(ticker=self.ticker)
+
+    def get_evaluation(self, date):
+        return evaluations.Evaluation.objects(ticker=self.ticker, date__lte=date).order_by('-date').first()
 
     def get_latest_evaluation(self):
         return evaluations.Evaluation.objects(ticker=self.ticker).order_by('-date').first()

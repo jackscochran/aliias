@@ -4,7 +4,7 @@ interact with the quotes collection in the
 mondoDB database
 """
 
-from data import quotes
+from ..data import quotes
 
 def add_quote(company_quote):
     if company_quote is None:
@@ -19,3 +19,6 @@ def add_quote(company_quote):
     
         quote.data = company_quote.get('data', None)
         quote.save()
+
+def exists(ticker, date):
+    return quotes.Quote.objects(ticker=ticker, date=date).first() is not None

@@ -17,7 +17,7 @@ db_manager.setup_network_connection('aliias')
 
 
 # data_pipeline.collect_earnings(DATE)
-print(analytics.create_weightings(1000, timeline.change_months(DATE, -12), timeline.change_months(DATE, -6)))
+print(analytics.create_weightings(500, timeline.change_months(DATE, -12), timeline.change_months(DATE, -6)))
 
 # class EarningsDateScrape(unittest.TestCase):
     

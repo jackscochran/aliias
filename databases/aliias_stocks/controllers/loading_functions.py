@@ -20,17 +20,17 @@ import sys
 # Third party imports -- None
 
 # Local application imports
-import adaptors.yahoo_portal as yahoo_portal
-import manager as db_manager
-import adaptors.evaluator as evaluator_adaptor
-import adaptors.financial_period as financial_period_adaptor
-import adaptors.quote as quote_adaptor
-import adaptors.daily_price as daily_price_adaptor
-import adaptors.evaluation as evaluation_adaptor
-import adaptors.company as company_adaptor
-import adaptors.earnings_date as earnings_date_adaptor
-import helpers.timeline as timeline
-import adaptors.portfolio as portfolio_adaptor
+from ..adaptors import yahoo_portal as yahoo_portal
+from .. import manager as db_manager
+from ..adaptors import evaluator as evaluator_adaptor
+from ..adaptors import financial_period as financial_period_adaptor
+from ..adaptors import quote as quote_adaptor
+from ..adaptors import daily_price as daily_price_adaptor
+from ..adaptors import evaluation as evaluation_adaptor
+from ..adaptors import company as company_adaptor
+from ..adaptors import earnings_date as earnings_date_adaptor
+from ..helpers import timeline as timeline
+from ..adaptors import portfolio as portfolio_adaptor
 
 # ---------- HELPER FUNCTIONS --------- #
 

@@ -6,6 +6,10 @@
     background-color: #75D4F9 !important;
 }
 
+.color-primary-blue{
+    color:#75D4F9;
+}
+
 .primary-black{
     background-color: #1A1A1A !important;
 }
@@ -48,6 +52,18 @@
 
 .banner{
     padding: 100px 0px;
+}
+
+.margin-top-50{
+    margin-top: 50px;
+}
+
+.margin-top-100{
+    margin-top: 100px;
+}
+
+.margin-bottom-100{
+    margin-bottom: 100px;
 }
 
 

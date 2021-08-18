@@ -4,8 +4,8 @@ interact with the portfolios collection in the
 mondoDB database
 """
 
-import data.portfolios.rating_leader_boards as rating_leader_boards
-import data.portfolios.portfolios as portfolios
+from ..data.portfolios import rating_leader_boards
+from ..data.portfolios import portfolios
 import datetime
 
 def get_portfolio():
@@ -29,3 +29,4 @@ def create_leader_board(name, evaluator_name):
     new_board.version = portfolios.Portfolio.objects(name=name).count()
     return new_board
 
+# ---------- Website functions ------ #

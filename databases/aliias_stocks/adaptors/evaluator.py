@@ -1,5 +1,5 @@
-import evaluators.model_one as model_one
-import data.evaluators as evaluators
+from ..evaluators import model_one
+from ..data import evaluators
 
 import datetime
 

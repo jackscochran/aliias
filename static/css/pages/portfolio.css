@@ -1,0 +1,20 @@
+.portfolio__title{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.portfolio__title * {
+    padding: 30px;
+}
+
+.portfolio__view .material-icons{
+    font-size: 30px;
+    position: relative;
+    top: 5px;
+}
+
+.portfolio-version{
+    font-size: 30px;
+    margin: 0 30px;
+}
+

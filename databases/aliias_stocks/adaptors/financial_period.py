@@ -4,7 +4,7 @@ interact with the financial periods collection in the
 mondoDB database
 """
 
-from data import financial_periods
+from ..data import financial_periods
 
 def add_financialPeriod(financials):
 

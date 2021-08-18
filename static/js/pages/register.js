@@ -17,7 +17,7 @@ $(document).ready(function(){
             // submit email to backend
             $.ajax({
                 type: 'POST',
-                url: '/register-email',
+                url: '/api/register-email',
                 data: {'email': $('[name=' + fieldJSON.inputElementName + ']').val()},
                 async: false,
                 dataType: 'JSON',

@@ -4,7 +4,7 @@ interact with the earnings dates collection in the
 mondoDB database
 """
 
-from data import earnings_dates
+from ..data import earnings_dates
 
 def add_earnings_date(tickers, date):
 

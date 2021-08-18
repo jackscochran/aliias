@@ -9,8 +9,8 @@ import datetime
 # Third party imports
 
 # Local application imports
-import adaptors.company as company_adaptor
-import adaptors.evaluation as evaluation_adaptor
+from ..adaptors import company as company_adaptor
+from ..adaptors import evaluation as evaluation_adaptor
 
 WEIGHTINGS = {
     'netIncome': 3.14049035430264,

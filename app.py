@@ -1,13 +1,20 @@
 import flask
 
 import databases.aliias_web.adaptors.email as email_adaptor
+import databases.aliias_stocks.adaptors.portfolio as portfolio_adaptor
+import databases.aliias_stocks.manager as stock_db_manager
 import databases.aliias_web.manager as user_db_manager
 
 import re
 
+# ------------------- APP CONFIG -------------------#
+
 app = flask.Flask(__name__)
 
-# ------------------- PAGE ROUTES ---------------- 3
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+
+# ------------------- PAGE ROUTES ---------------- #
 
 @app.route('/')
 def index():
@@ -46,7 +53,7 @@ def error():
 
 # ------------------- API ROUTES ---------------- 3
 
-@app.route('/register-email', methods=['POST'])
+@app.route('/api/register-email', methods=['POST'])
 def register_email():
     if flask.request.method == 'POST':
         email = flask.request.form.get('email')
@@ -59,7 +66,11 @@ def register_email():
 
     return flask.jsonify({'error': True})
 
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+@app.route('/api/get-portfolio', methods=['POST'])
+def get_portfolio():
+    portfolio = {}
+    return flask.jsonify(portfolio)
+# ------------------- RUNNER FUNCTION ---------------- #
 
 if __name__ == "__main__":
     app.run()

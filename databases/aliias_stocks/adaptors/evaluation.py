@@ -4,7 +4,7 @@ interact with the evalutation collection in the
 mondoDB database
 """
 
-from data import evaluations 
+from ..data import evaluations 
 
 def add_evaluation(ticker, date, rating, evaluator_name):
     ticker = ticker.upper()

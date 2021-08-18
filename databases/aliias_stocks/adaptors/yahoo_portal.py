@@ -1,7 +1,6 @@
 import json, requests
 from numpy import nan
 import datetime
-import os
 import yahoo_fin.stock_info as yf_stock_info
 from yahoo_fin import news as yf_news
 

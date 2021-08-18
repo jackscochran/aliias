@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
 {% block cssImports %}
-<link rel="stylesheet" type="text/css" href="../static/css/pages/portfolios.css">
+<link rel="stylesheet" type="text/css" href="../static/css/pages/portfolio.css">
+{% endblock %}
+
+{% block jsImports %}
+<script src="../static/js/pages/portfolio.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -9,6 +13,81 @@
 {% endblock %}
 
 {% block body %}
+
+<div class="row grid-x">
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__title">
+        <h1>Our Portfolio</h1>
+        <p>Through the use of quantitative analysis and artificial intelligence we have created ratings for individual securities from North American markets a scale from 1-10. Our portfolio is actively managed and seeks long term growth though investing in our top 25 highest rated securities.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__view">
+        <h2>Version</h2>
+        <span class="material-icons">chevron_left</span><span id="portfolio-version" class="portfolio-version">2</span><span class="material-icons">chevron_right</span>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 portfolio__performance-table margin-top-50 margin-bottom-100">
+        <h2>ALIIAS Performance</h2>
+        <p>As of 2021-07-11</p>
+        <div class="grid-x">
+            <div class="cell large-2">
+                <h3>6 Month</h3>
+                <p>15.71</p>
+            </div>
+            <div class="cell large-2">
+                <h3>YTD</h3>
+                <p>21.31</p>
+            </div>
+            <div class="cell large-2 ">
+                <h3  >1 Year</h3>
+                <p>234.432</p>
+            </div>
+            <div class="cell large-2">
+                <h3 >3 Years</h3>
+                <p>232.3</p>
+            </div>
+            <div class="cell large-2">
+                <h3 >5 Years</h3>
+                <p>33.321</p>
+            </div>
+            <div class="cell large-2">
+                <h3 >Inception</h3>
+                <p>115.7</p>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__performance-chart">
+
+    </div>
+    <div class="cell small-10 small-offset-1 medium-6 medium-offset-3 portfolio__performance-table margin-bottom-100">
+        <h2><span>AEL</span> <small>This is the company name</small></h2>
+        <p>Aliias rated <span>11.1</span> on <span>2021-07-08</span>.</p>
+
+        <div class="grid-x">
+            <div class="cell large-3">
+                <h4>Price</h4>
+                <p>15.71</p>
+            </div>
+            <div class="cell large-3">
+                <h4>Market Cap</h4>
+                <p>21.31</p>
+            </div>
+            <div class="cell large-2 ">
+                <h4>P/E Ratio</h4>
+                <p>234.432</p>
+            </div>
+            <div class="cell large-2">
+                <h4>Yield</h4>
+                <p>232.3</p>
+            </div>
+            <div class="cell large-2">
+                <h4 >EPS</h4>
+                <p>33.321</p>
+            </div>
+        </div>
+        <br>
+        <p>As of 2021-07-11</p>
+        <hr>
+    </div>
+</div>
 
 
 {% endblock %}

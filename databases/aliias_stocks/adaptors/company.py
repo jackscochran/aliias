@@ -4,9 +4,9 @@ interact with the companies collection in the
 mondoDB database
 """
 
-from data.companies import Company
+from ..data import companies
 import random
-
+import datetime
 # ----------- ADDER(also setter) FUNCTIONS--------- #
 
 def add_company(ticker, name):
@@ -15,7 +15,7 @@ def add_company(ticker, name):
     entry = get_company(ticker)
 
     if not entry: # add new company to database
-        entry = Company()
+        entry = companies.Company()
         entry.ticker = ticker
 
     entry.company_name = name
@@ -25,19 +25,19 @@ def add_company(ticker, name):
 # ----------- GETTER FUNCTIONS ----------- #
 
 def get_company(ticker):
-    return Company.objects(ticker=ticker).first()
+    return companies.Company.objects(ticker=ticker).first()
 
 def get_financials(ticker, period):                                                                                                         
     return get_company(ticker).get_latest_financials(period)
 
 def get_all_tickers():
-    return [company.ticker for company in Company.objects]
+    return [company.ticker for company in companies.Company.objects]
 
 def get_all_companies():
-    return Company.objects
+    return companies.Company.objects
 
 def get_n_companies(n):
-    return Company.objects[:n]
+    return companies.Company.objects[:n]
 
 def get_n_random_companies(n):
     n_companies = []
@@ -46,6 +46,28 @@ def get_n_random_companies(n):
     for i in range(n):
         index = random.randint(0, len(company_objects))
         indexes_used.append(index)
-        n_companies.append(Company.objects[index])
+        n_companies.append(companies.Company.objects[index])
 
     return n_companies
+
+# ---------- Website functions ------ #
+
+def company_data_list_format(ticker):
+
+    date = str(datetime.date.today())
+
+    company = get_company(ticker)
+    evaluation = company.get_evaluation(date)
+    quote = company.get_quote_data(date)
+    price = company.get_price(date)
+
+    company_data = {
+        'ticker': ticker,
+        'fullName': company.company_name,
+        'rating': evaluation.rating,
+        'dateRated': evaluation.date,
+        'price': price.price,
+        'marketCap': quote.marketCap,
+    }
+
+    return company_data
