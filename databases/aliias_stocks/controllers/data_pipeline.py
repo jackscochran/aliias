@@ -105,19 +105,20 @@ def collect_ticker_prices(date):
     count = 0
     for ticker in company_adaptor.get_all_tickers():
         count +=1 
-        print(ticker + ' ' + count)
+        print(ticker + ' ' + str(count))
         if not daily_price_adaptor.exists(ticker, date):
             collect_and_save_price(ticker, date)
 
-def collect_quote_data(date):
+def collect_quote_data():
     print('Collecting quote data for tickers in database')
     print('Collecting quote data for: ')
+    date = str(datetime.date.today())
     count = 0
     for ticker in company_adaptor.get_all_tickers():
         count +=1 
-        print(ticker + ' ' + count)
+        print(ticker + ' ' + str(count))
         if not quote_adaptor.exists(ticker, date):
-            collect_and_save_quote(ticker, date)
+            collect_and_save_quote(ticker)
 
 
     

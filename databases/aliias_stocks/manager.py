@@ -4,9 +4,7 @@ and setting up connections with the external mongoDB
 databases
 """
 # Standard libary imports
-import datetime
 import os
-import sys
 
 # Third party imports -- None
 import mongoengine
@@ -24,45 +22,3 @@ def setup_network_connection(database):
     mongoengine.connect(host='mongodb+srv://' + account_name + ':' + account_password + '@realmcluster.zudeo.mongodb.net/' + database + '?retryWrites=true&w=majority', alias='core')
 
 
-# ------------- COMMANDS -------------- # 
-
-
-if __name__ == '__main__':
-    
-    # Local application imports
-    import controllers.data_pipeline as data_pipeline
-    import controllers.loading_functions as loading_functions
-
-
-    command = sys.argv[1]
-
-    setup_network_connection('aliias')
-    data_pipeline.collect_quote_data('2021-08-17')
-
-
-    if command == 'earnings_calender':
-        if len(sys.argv) > 2:
-            date = sys.argv[2]
-        else:
-            date = str(datetime.date.today() - datetime.timedelta(days=1))
-
-        data_pipeline.collect_earnings(date)
-
-    if command == 'collect_ticker_prices':
-        if len(sys.argv) > 2:
-            date = sys.argv[2]
-        else:
-            date = str(datetime.date.today() - datetime.timedelta(days=1))
-
-        data_pipeline.collect_ticker_prices(date)
-
-    if command == 'collect_quote_data':
-        if len(sys.argv) > 2:
-            date = sys.argv[2]
-        else:
-            date = str(datetime.date.today() - datetime.timedelta(days=1))
-
-        data_pipeline.collect_quote_data(date)
-
-    if command == 'load_price_and_evaluate_earnings':
-        loading_functions.load_price_and_evaluate_earnings()

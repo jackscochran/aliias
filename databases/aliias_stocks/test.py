@@ -16,9 +16,9 @@ db_manager.setup_network_connection('aliias')
 # portfolio_adaptor.get_current_board().challenge()
 
 
-# data_pipeline.collect_earnings(DATE)
-print(analytics.create_weightings(500, timeline.change_months(DATE, -12), timeline.change_months(DATE, -6)))
-
+data_pipeline.collect_quote_data(DATE)
+# print(analytics.create_weightings(500, timeline.change_months(DATE, -12), timeline.change_months(DATE, -6)))
+# 
 # class EarningsDateScrape(unittest.TestCase):
     
 #     # run process and test results

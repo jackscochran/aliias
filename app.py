@@ -2,6 +2,7 @@ import flask
 
 import databases.aliias_web.adaptors.email as email_adaptor
 import databases.aliias_stocks.adaptors.portfolio as portfolio_adaptor
+import databases.aliias_stocks.controllers.data_pipeline as data_pipeline
 import databases.aliias_stocks.manager as stock_db_manager
 import databases.aliias_web.manager as user_db_manager
 
@@ -49,6 +50,7 @@ def search():
 @app.route('/error')
 def error():
     # error page
+    
     return flask.render_template('error.html')
 
 # ------------------- API ROUTES ---------------- 3
