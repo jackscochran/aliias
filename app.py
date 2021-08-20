@@ -60,7 +60,7 @@ def error():
 @app.route('/api/register-email', methods=['POST'])
 def register_email():
     if flask.request.method == 'POST':
-        email = flask.request.form.get('email')
+        email = flask.request.form.get('email').lower()
         # validate email
         #   TODO
 
