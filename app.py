@@ -64,41 +64,41 @@ def register_email():
         # validate email
         #   TODO
 
-        user_db_manager.setup_heroku_mongo_connection()
+        user_db_manager.sstock_db_manager.setup_heroku_mongo_connection()
 
         return flask.jsonify({'email_added': email_adaptor.add_email(email)})
 
     return flask.jsonify({'error': True})
 
-@app.route('/api/get-portfolio', methods=['POST'])
+@app.route('/api/get-portfolio', methods=['GET'])
 def get_portfolio():
 
     stock_db_manager.setup_heroku_mongo_connection()
 
-    if flask.request.method == 'POST':
-        portfolio = portfolio_adaptor.get_portfolio(flask.request.form.get('name'), flask.request.form.get('version'))
+    if flask.request.method == 'GET':
+        portfolio = portfolio_adaptor.get_portfolio(flask.request.args.get('name'), flask.request.args.get('version'))
         return flask.jsonify({'date_created': portfolio.date_created, 'tickers': portfolio.tickers})
 
     return flask.jsonify({'error': True})
 
-@app.route('/api/portfolio-company', methods=['POST'])
+@app.route('/api/portfolio-company', methods=['GET'])
 def portfolio_company_date():
 
     stock_db_manager.setup_heroku_mongo_connection()
 
-    if flask.request.method == 'POST':
-        company_data = company_adaptor.company_data_list_format(flask.request.form.get('ticker'))
+    if flask.request.method == 'GET':
+        company_data = company_adaptor.company_data_list_format(flask.request.args.get('ticker'))
         return flask.jsonify(company_data)
 
     return flask.jsonify({'error': True})
 
-@app.route('/api/all-company-prices', methods=['POST'])
+@app.route('/api/all-company-prices', methods=['GET'])
 def all_company_prices():
     
     stock_db_manager.setup_heroku_mongo_connection()
 
-    if flask.request.method == 'POST':
-        prices = price_adaptor.all_company_prices(flask.request.form.get('ticker'))
+    if flask.request.method == 'GET':
+        prices = price_adaptor.all_company_prices(flask.request.args.get('ticker'))
         return flask.jsonify([{'price': price.price, 'date': price.date} for price in prices])
 
     return flask.jsonify({'error': True})

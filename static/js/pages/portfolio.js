@@ -83,7 +83,7 @@ function loadCompanyData(ticker, index, date){
 
     $.ajax({
         url: '/api/portfolio-company',
-        type: 'POST',
+        type: 'GET',
         data: {'ticker': ticker},
         async: true,
         dataType: 'JSON',
@@ -186,7 +186,7 @@ function getPortfolio(version, name){
 
     $.ajax({
         url: '/api/get-portfolio',
-        type: 'POST',
+        type: 'GET',
         data: {'version': version, 'name': name},
         async: true,
         dataType: 'JSON',

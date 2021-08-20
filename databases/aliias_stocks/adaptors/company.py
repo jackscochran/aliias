@@ -58,7 +58,6 @@ def company_data_list_format(ticker):
 
     company = get_company(ticker)
     evaluation = company.get_evaluation(date)
-    quote = company.get_quote_data(date)
     price = company.get_price(date)
 
     company_data = {
@@ -67,7 +66,6 @@ def company_data_list_format(ticker):
         'rating': evaluation.rating,
         'dateRated': evaluation.date,
         'price': price.price,
-        'marketCap': quote.marketCap,
     }
 
     return company_data

@@ -8,8 +8,8 @@ from ..data.portfolios import rating_leader_boards
 from ..data.portfolios import portfolios
 import datetime
 
-def get_portfolio():
-    return
+def get_portfolio(name, version):
+    return portfolios.Portfolio.objects(name=name, version=version).first()
 
 def get_leader_board(evaluator_name, date):
     return rating_leader_boards.RatingLeaderBoard.objects(evaluator_name=evaluator_name, date_created__lte = date).order_by('-version').first()
