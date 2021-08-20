@@ -23,6 +23,7 @@ def get_price(ticker, date):
 
     if price is None:
         price = data_pipeline.collect_and_save_price(ticker, date)
+
     else:
         price = price.price
 

@@ -167,10 +167,17 @@ def portfolio_performance():
                 fiveYearCount += 1
                 performance['5y'] += (current_price - entry_price) / entry_price
 
-        performance['3m'] = round(performance['3m'] / threeMonthCount * 100, 2)
-        performance['6m'] = round(performance['6m'] / sixMonthCount * 100, 2)
-        performance['1y'] = round(performance['1y'] / oneYearCount * 100, 2)
-        performance['5y'] = round(performance['5y'] / fiveYearCount * 100, 2)
+        if threeMonthCount > 0:
+            performance['3m'] = round(performance['3m'] / threeMonthCount * 100, 2)
+
+        if sixMonthCount > 0:
+            performance['6m'] = round(performance['6m'] / sixMonthCount * 100, 2)
+
+        if oneYearCount > 0:
+            performance['1y'] = round(performance['1y'] / oneYearCount * 100, 2)
+
+        if fiveYearCount > 0:
+            performance['5y'] = round(performance['5y'] / fiveYearCount * 100, 2)
 
         return flask.jsonify(performance)
 

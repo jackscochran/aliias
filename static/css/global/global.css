@@ -15,6 +15,9 @@ body{
 
 .logo{
     width: 113px;
+    height: 25px;
+    max-width: 113px;
+    max-height: 25px;
 }
 
 .primary-blue{
