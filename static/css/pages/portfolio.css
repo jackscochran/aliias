@@ -7,14 +7,19 @@
     padding: 30px;
 }
 
-.portfolio__view .material-icons{
+.material-icons{
     font-size: 30px;
     position: relative;
     top: 5px;
+    cursor: pointer;
 }
 
 .portfolio-version{
     font-size: 30px;
     margin: 0 30px;
+}
+
+.three-dot-loading{
+    height: 200px;
 }
 

@@ -14,79 +14,74 @@
 
 {% block body %}
 
-<div class="row grid-x">
+<div id="portfolio" class="row grid-x">
     <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__title">
         <h1>Our Portfolio</h1>
-        <p>Through the use of quantitative analysis and artificial intelligence we have created ratings for individual securities from North American markets a scale from 1-10. Our portfolio is actively managed and seeks long term growth though investing in our top 25 highest rated securities.</p>
+        <p>Through the use of quantitative analysis and artificial intelligence we have created ratings for individual securities from North\ American markets a scale from 1-10. Our portfolio is actively managed and seeks long term growth though investing in our top 25 highest rated securities.</p>
     </div>
     <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__view">
         <h2>Version</h2>
-        <span class="material-icons">chevron_left</span><span id="portfolio-version" class="portfolio-version">2</span><span class="material-icons">chevron_right</span>
+        <span class="material-icons" id="left-version-arrow">chevron_left</span><span id="portfolio-version" class="portfolio-version"></span><span class="material-icons" id="right-version-arrow">chevron_right</span>
+        <p>date created: <span id="portfolio-creation-date"></span></p>
     </div>
-    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 portfolio__performance-table margin-top-50 margin-bottom-100">
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-9 large-offset-1 portfolio__performance-table margin-top-50 margin-bottom-100">
         <h2>ALIIAS Performance</h2>
-        <p>As of 2021-07-11</p>
+        <p>As of <span id="portfolio-performance-date"></span></p>
         <div class="grid-x">
-            <div class="cell large-2">
+            <div class="cell small-6 large-2">
+                <h3 >3 Month</h3>
+                <p><span id="portfolio-performance-3m"></span> %</p>
+            </div>
+            <div class="cell small-6 large-2">
                 <h3>6 Month</h3>
-                <p>15.71</p>
+                <p><span id="portfolio-performance-6m"></span> %</p>
             </div>
-            <div class="cell large-2">
-                <h3>YTD</h3>
-                <p>21.31</p>
+            <div class="cell small-6 large-2 ">
+                <h3>1 Year</h3>
+                <p><span id="portfolio-performance-1y"></span> %</p>
             </div>
-            <div class="cell large-2 ">
-                <h3  >1 Year</h3>
-                <p>234.432</p>
-            </div>
-            <div class="cell large-2">
-                <h3 >3 Years</h3>
-                <p>232.3</p>
-            </div>
-            <div class="cell large-2">
-                <h3 >5 Years</h3>
-                <p>33.321</p>
-            </div>
-            <div class="cell large-2">
-                <h3 >Inception</h3>
-                <p>115.7</p>
+            <div class="cell small-6 large-2">
+                <h3>5 Years</h3>
+                <p><span id="portfolio-performance-5y"></span> %</p>
             </div>
         </div>
+        <img id="loading-portfolio-performance" class="three-dot-loading" src="../static/img/loading/loading.gif">
         <hr>
     </div>
     <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center portfolio__performance-chart">
 
     </div>
-    <div class="cell small-10 small-offset-1 medium-6 medium-offset-3 portfolio__performance-table margin-bottom-100">
-        <h2><span>AEL</span> <small>This is the company name</small></h2>
-        <p>Aliias rated <span>11.1</span> on <span>2021-07-08</span>.</p>
+    <!-- <div class="cell small-10 small-offset-1 medium-6 medium-offset-3 portfolio__performance-table margin-bottom-100">
+        <h2><span class="company-ticker"></span> <small><span class="company-full-name"></span></small></h2>
+        <p>Aliias rated <span class="company-rating">11.1</span> on <span class="company-rating-date">2021-07-08</span>.</p>
 
         <div class="grid-x">
-            <div class="cell large-3">
+            <div class="cell large-2">
                 <h4>Price</h4>
-                <p>15.71</p>
+                <p><span class="company-price"></span></p>
             </div>
-            <div class="cell large-3">
-                <h4>Market Cap</h4>
-                <p>21.31</p>
-            </div>
+
             <div class="cell large-2 ">
-                <h4>P/E Ratio</h4>
-                <p>234.432</p>
+                <h4>3 Month</h4>
+                <p><span class="company-performance-3m"></span></p>
             </div>
             <div class="cell large-2">
-                <h4>Yield</h4>
-                <p>232.3</p>
+                <h4>6 Month</h4>
+                <p><span class="company-performance-6m"></span></p>
             </div>
             <div class="cell large-2">
-                <h4 >EPS</h4>
-                <p>33.321</p>
+                <h4>1 Year</h4>
+                <p><span class="company-performance-1y"></span></p>
+            </div>
+            <div class="cell large-2">
+                <h4>3 Year</h4>
+                <p><span class="company-performance-3y"></span></p>
             </div>
         </div>
         <br>
-        <p>As of 2021-07-11</p>
+        <p>As of <span class="company-performance-date"></span></p>
         <hr>
-    </div>
+    </div> -->
 </div>
 
 

@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     command = sys.argv[1]
 
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if command == 'earnings_calender':
         if len(sys.argv) > 2:
