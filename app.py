@@ -64,7 +64,7 @@ def register_email():
         # validate email
         #   TODO
 
-        user_db_manager.setup_heroku_mongo_connection()
+        user_db_manager.setup_network_connection('aliias')
 
         return flask.jsonify({'email_added': email_adaptor.add_email(email)})
 
@@ -73,7 +73,7 @@ def register_email():
 @app.route('/api/get-portfolio', methods=['GET'])
 def get_portfolio():
 
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         portfolio = portfolio_adaptor.get_portfolio(flask.request.args.get('name'), flask.request.args.get('version'))
@@ -84,7 +84,7 @@ def get_portfolio():
 @app.route('/api/portfolio-company', methods=['GET'])
 def portfolio_company_date():
 
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         company_data = company_adaptor.company_data_list_format(flask.request.args.get('ticker'))
@@ -95,7 +95,7 @@ def portfolio_company_date():
 @app.route('/api/all-company-prices', methods=['GET'])
 def all_company_prices():
     
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         prices = price_adaptor.all_company_prices(flask.request.args.get('ticker'))
@@ -106,19 +106,19 @@ def all_company_prices():
 @app.route('/api/company-performance', methods=['GET'])
 def company_price():
     
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         ticker = flask.request.args.get('ticker')
         date = flask.request.args.get('date')
         date_rated = company_adaptor.get_company(ticker).get_evaluation(date).date
         return flask.jsonify({
-            'current': price_adaptor.get_price(ticker, date),
-            '3m': price_adaptor.get_price(ticker, timeline.change_months(date, -3)),
-            '6m': price_adaptor.get_price(ticker, timeline.change_months(date, -6)),
-            '1y': price_adaptor.get_price(ticker, timeline.change_months(date, -12)),
-            '5y': price_adaptor.get_price(ticker, timeline.change_months(date, -60)),
-            'rated': price_adaptor.get_price(ticker, date_rated)
+            'current': price_adaptor.get_weekday_price(ticker, date),
+            '3m': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -3)),
+            '6m': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -6)),
+            '1y': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -12)),
+            '5y': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -60)),
+            'rated': price_adaptor.get_weekday_price(ticker, date_rated)
         })
 
     return flask.jsonify({'error': True})
@@ -126,7 +126,7 @@ def company_price():
 @app.route('/api/portfolio-performance', methods=['GET'])
 def portfolio_performance():
     
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         name = flask.request.args.get('name')
@@ -143,26 +143,26 @@ def portfolio_performance():
         threeMonthCount = sixMonthCount = oneYearCount = fiveYearCount = 0
         for ticker in portfolio_adaptor.get_portfolio(name, version).tickers:
             
-            current_price = price_adaptor.get_price(ticker, date)
+            current_price = price_adaptor.get_weekday_price(ticker, date)
              
             
-            entry_price = price_adaptor.get_price(ticker, timeline.change_months(date, -3))
+            entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -3))
             if entry_price is not None:
                 threeMonthCount += 1
                 performance['3m'] += (current_price - entry_price) / entry_price
 
             
-            entry_price = price_adaptor.get_price(ticker, timeline.change_months(date, -6))
+            entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -6))
             if entry_price is not None:
                 sixMonthCount += 1
                 performance['6m'] += (current_price - entry_price) / entry_price
 
-            entry_price = price_adaptor.get_price(ticker, timeline.change_months(date, -12))
+            entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -12))
             if entry_price is not None:
                 oneYearCount += 1
                 performance['1y'] += (current_price - entry_price) / entry_price
 
-            entry_price = price_adaptor.get_price(ticker, timeline.change_months(date, -60))
+            entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -60))
             if entry_price is not None:
                 fiveYearCount += 1
                 performance['5y'] += (current_price - entry_price) / entry_price
@@ -178,7 +178,7 @@ def portfolio_performance():
 
         if fiveYearCount > 0:
             performance['5y'] = round(performance['5y'] / fiveYearCount * 100, 2)
-
+        
         return flask.jsonify(performance)
 
     return flask.jsonify({'error': True})

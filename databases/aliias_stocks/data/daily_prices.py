@@ -3,7 +3,7 @@ import mongoengine
 class DailyPrice(mongoengine.Document):
     ticker = mongoengine.StringField(required=True)
     date = mongoengine.StringField(required=True)
-    price = mongoengine.FloatField(required=True)
+    price = mongoengine.FloatField()
 
     meta = {
         'db_alias': 'core',
