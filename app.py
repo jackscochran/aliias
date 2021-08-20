@@ -64,7 +64,7 @@ def register_email():
         # validate email
         #   TODO
 
-        user_db_manager.sstock_db_manager.setup_heroku_mongo_connection()
+        user_db_manager.stock_db_manager.setup_heroku_mongo_connection()
 
         return flask.jsonify({'email_added': email_adaptor.add_email(email)})
 
