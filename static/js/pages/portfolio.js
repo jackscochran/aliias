@@ -231,12 +231,25 @@ function expandCompanyPerformanceData(index){
 
 function today(){
     var today = new Date();
+    console.log(today.getDay())
+    if (today.getDay() == 0){ //sunday
+        today = addDays(today, -2)
+    }else if (today.getDay() == 6){ //saturday
+        today = addDays(today, -1)
+    }
+
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
     today = yyyy + '-' + mm + '-' + dd;
     return today
+}
+
+function addDays(date, days) {
+    var date = new Date(date.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
 }
 
 

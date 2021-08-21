@@ -64,7 +64,7 @@ def register_email():
         # validate email
         #   TODO
 
-        user_db_manager.setup_network_connection('aliias')
+        user_db_manager.setup_heroku_mongo_connection()
 
         return flask.jsonify({'email_added': email_adaptor.add_email(email)})
 
@@ -73,7 +73,7 @@ def register_email():
 @app.route('/api/get-portfolio', methods=['GET'])
 def get_portfolio():
 
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         portfolio = portfolio_adaptor.get_portfolio(flask.request.args.get('name'), flask.request.args.get('version'))
@@ -84,7 +84,7 @@ def get_portfolio():
 @app.route('/api/portfolio-company', methods=['GET'])
 def portfolio_company_date():
 
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         company_data = company_adaptor.company_data_list_format(flask.request.args.get('ticker'))
@@ -95,7 +95,7 @@ def portfolio_company_date():
 @app.route('/api/all-company-prices', methods=['GET'])
 def all_company_prices():
     
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         prices = price_adaptor.all_company_prices(flask.request.args.get('ticker'))
@@ -106,7 +106,7 @@ def all_company_prices():
 @app.route('/api/company-performance', methods=['GET'])
 def company_price():
     
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         ticker = flask.request.args.get('ticker')
@@ -126,7 +126,7 @@ def company_price():
 @app.route('/api/portfolio-performance', methods=['GET'])
 def portfolio_performance():
     
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         name = flask.request.args.get('name')

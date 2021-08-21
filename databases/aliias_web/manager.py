@@ -21,6 +21,6 @@ def setup_heroku_mongo_connection():
     mongoengine.connect(host='mongodb+srv://' + os.environ.get('DB_ACCOUNT') + ':' + os.environ.get('DB_PASSWORD') + '@realmcluster.zudeo.mongodb.net/' + os.environ.get('USER_DB_NAME') + '?retryWrites=true&w=majority', alias='web')
 
 def setup_network_connection(database):
-    account_name = ''
-    account_password = ''
+    account_name = 'webApp'
+    account_password = 'eoAgrFCjrV5r6C2C'
     mongoengine.connect(host='mongodb+srv://' + account_name + ':' + account_password + '@realmcluster.zudeo.mongodb.net/' + database + '?retryWrites=true&w=majority', alias='web')
