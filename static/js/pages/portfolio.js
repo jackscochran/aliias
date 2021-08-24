@@ -55,7 +55,7 @@ function loadPortfolioPerformance(name, version, date){
     $('#portfolio-performance-3m').text(function(){return ''});
     $('#portfolio-performance-6m').text(function(){return ''});
     $('#portfolio-performance-1y').text(function(){return ''});
-    $('#portfolio-performance-5y').text(function(){return ''});
+    $('#portfolio-performance-creation').text(function(){return ''});
     
     $('#portfolio-performance-date').text(function(){return date});
 
@@ -69,10 +69,11 @@ function loadPortfolioPerformance(name, version, date){
             $('#portfolio-performance-3m').text(function(){return data['3m']});
             $('#portfolio-performance-6m').text(function(){return data['6m']});
             $('#portfolio-performance-1y').text(function(){return data['1y']});
-            $('#portfolio-performance-5y').text(function(){return data['5y']});
+            $('#portfolio-performance-creation').text(function(){return data['sinceCreation']});
             $('#loading-portfolio-performance').hide()
         },
-        error: function(){
+        error: function(data){
+            console.log(data)
             console.error('portfolio performace API called failed')
         }
     })
@@ -151,7 +152,6 @@ function loadPerformanceData(ticker, date, index){
             $('.company-performance-3m').eq(index).text(function(){return performance(data['3m'], data['current'])});
             $('.company-performance-6m').eq(index).text(function(){return performance(data['6m'], data['current'])});
             $('.company-performance-1y').eq(index).text(function(){return performance(data['1y'], data['current'])});
-            $('.company-performance-5y').eq(index).text(function(){return performance(data['5y'], data['current'])});
             $('.company-performance-since-rating').eq(index).text(function(){return performance(data['rated'], data['current'])});
             $('.company-performance-date').eq(index).text(function(){return date});
         },
@@ -170,7 +170,7 @@ function performance(entry, exit){
 
 function appendCompanySpot(){
 
-    var htmlString = '<div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-4 large-offset-1 portfolio__performance-table portfolio-item margin-bottom-100"><h2><span class="company-ticker"></span> <small><span class="company-full-name"></span></small></h2><p>Aliias rated <span class="company-rating"></span> on <span class="company-rating-date"></span>.</p><div class="grid-x company-performance-stats"><div class="cell medium-4"><h4>Price</h4><p>$<span class="company-price"></span></p></div><div class="cell medium-4 "><h4>3 Month</h4><p><span class="company-performance-3m"></span> %</p></div><div class="cell medium-4"><h4>6 Month</h4><p><span class="company-performance-6m"></span> %</p></div><div class="cell medium-4"><h4>1 Year</h4><p><span class="company-performance-1y"></span> %</p></div><div class="cell medium-4"><h4>5 Year</h4><p><span class="company-performance-5y"></span> %</p></div><div class="cell medium-4"><h4>Since Rating</h4><p><span class="company-performance-since-rating"></span> %</p></div></div><br><p>As of <span class="company-performance-date"></span><span class="company-expand material-icons float-right">expand_less</span></p><hr></div>'
+    var htmlString = '<div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-4 large-offset-1 portfolio__performance-table portfolio-item margin-bottom-100"><h2><span class="company-ticker"></span> <small><span class="company-full-name"></span></small></h2><p>Aliias rated <span class="company-rating"></span> on <span class="company-rating-date"></span>.</p><div class="grid-x company-performance-stats"><div class="cell medium-4"><h4>Price</h4><p>$<span class="company-price"></span></p></div><div class="cell medium-4 "><h4>3 Month</h4><p><span class="company-performance-3m"></span> %</p></div><div class="cell medium-4"><h4>6 Month</h4><p><span class="company-performance-6m"></span> %</p></div><div class="cell medium-4"><h4>1 Year</h4><p><span class="company-performance-1y"></span> %</p></div><div class="cell medium-4"><h4>Since Rating</h4><p><span class="company-performance-since-rating"></span> %</p></div></div><br><p>As of <span class="company-performance-date"></span><span class="company-expand material-icons float-right">expand_less</span></p><hr></div>'
 
     $('#portfolio').append(htmlString)
 
@@ -197,7 +197,7 @@ function getPortfolio(version, name){
                         
             $('#portfolio-creation-date').text(function(){return data['date_created']});
             
-            currentDate = today()
+            currentDate = yesterday()
 
             loadPortfolioPerformance(name, version, currentDate)
 
@@ -230,20 +230,34 @@ function expandCompanyPerformanceData(index){
 }
 
 function today(){
-    var today = new Date();
-    console.log(today.getDay())
-    if (today.getDay() == 0){ //sunday
-        today = addDays(today, -2)
-    }else if (today.getDay() == 6){ //saturday
-        today = addDays(today, -1)
+    var today = new Date();    
+    return dateToString(weekendToFriday(today))
+}
+
+function yesterday(){
+    var date = new Date();
+    date.setDate(date.getDate() -1);
+    return dateToString(weekendToFriday(date))
+}
+
+function weekendToFriday(date){
+    if (date.getDay() == 0){ //sunday
+        date = addDays(date, -2)
+    }else if (date.getDay() == 6){ //saturday
+        date = addDays(date, -1)
     }
 
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    return date
+}
 
-    today = yyyy + '-' + mm + '-' + dd;
-    return today
+
+function dateToString(date){
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    date = yyyy + '-' + mm + '-' + dd;
+    return date
 }
 
 function addDays(date, days) {

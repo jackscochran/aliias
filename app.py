@@ -1,5 +1,5 @@
 import flask
-
+import math
 import databases.aliias_web.adaptors.email as email_adaptor
 import databases.aliias_stocks.adaptors.portfolio as portfolio_adaptor
 import databases.aliias_stocks.adaptors.company as company_adaptor
@@ -113,11 +113,10 @@ def company_price():
         date = flask.request.args.get('date')
         date_rated = company_adaptor.get_company(ticker).get_evaluation(date).date
         return flask.jsonify({
-            'current': price_adaptor.get_weekday_price(ticker, date),
+            'current': price_adaptor.get_price(ticker, date),
             '3m': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -3)),
             '6m': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -6)),
             '1y': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -12)),
-            '5y': price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -60)),
             'rated': price_adaptor.get_weekday_price(ticker, date_rated)
         })
 
@@ -137,14 +136,17 @@ def portfolio_performance():
             '3m': 0,
             '6m': 0,
             '1y': 0,
-            '5y': 0
+            'sinceCreation': 0
         }
 
-        threeMonthCount = sixMonthCount = oneYearCount = fiveYearCount = 0
-        for ticker in portfolio_adaptor.get_portfolio(name, version).tickers:
+        print(performance)
+
+        threeMonthCount = sixMonthCount = oneYearCount = sinceCreationCount = 0
+
+        portfolio = portfolio_adaptor.get_portfolio(name, version)
+        for ticker in portfolio.tickers:
             
-            current_price = price_adaptor.get_weekday_price(ticker, date)
-             
+            current_price = price_adaptor.get_price(ticker, date)
             
             entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -3))
             if entry_price is not None:
@@ -162,10 +164,10 @@ def portfolio_performance():
                 oneYearCount += 1
                 performance['1y'] += (current_price - entry_price) / entry_price
 
-            entry_price = price_adaptor.get_weekday_price(ticker, timeline.change_months(date, -60))
-            if entry_price is not None:
-                fiveYearCount += 1
-                performance['5y'] += (current_price - entry_price) / entry_price
+            entry_price = price_adaptor.get_weekday_price(ticker, portfolio.date_created)
+            if entry_price is not None and not math.isnan(entry_price):
+                sinceCreationCount += 1
+                performance['sinceCreation'] += (current_price - entry_price) / entry_price
 
         if threeMonthCount > 0:
             performance['3m'] = round(performance['3m'] / threeMonthCount * 100, 2)
@@ -176,9 +178,13 @@ def portfolio_performance():
         if oneYearCount > 0:
             performance['1y'] = round(performance['1y'] / oneYearCount * 100, 2)
 
-        if fiveYearCount > 0:
-            performance['5y'] = round(performance['5y'] / fiveYearCount * 100, 2)
-        
+        print('------------')
+        print(performance)
+        print(sinceCreationCount)
+        if sinceCreationCount > 0:
+            performance['sinceCreation'] = round(performance['sinceCreation'] / sinceCreationCount * 100, 2)
+
+
         return flask.jsonify(performance)
 
     return flask.jsonify({'error': True})

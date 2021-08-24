@@ -7,10 +7,8 @@ import databases.aliias_stocks.controllers.data_pipeline as data_pipeline
 import databases.aliias_stocks.controllers.loading_functions as loading_functions
 
 
-
 if __name__ == '__main__':
     
-
     command = sys.argv[1]
 
     stock_db_manager.setup_heroku_mongo_connection()
