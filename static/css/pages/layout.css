@@ -41,19 +41,19 @@ ul.menu li a {
 }
 
 span.nav-dropdown-button{
-    font-size: 40px;
+    font-size: 70px;
     cursor: pointer;
 }
 
 .nav-dropdown{
     position: fixed; 
     right: 59px;
-    top: 88px;
+    top: 135px;
     background-color: white;
-    padding: 36px;
+    padding: 42px;
     z-index: 11;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-
+    font-size: 28px;
 }
 
 #dropdown-register{
@@ -84,6 +84,12 @@ span.nav-dropdown-button{
     .top-bar .top-bar-right-mobile{
       display: block;
     }
+    .top-bar{
+        padding: 50px 100px;
+    }
+    body{
+        top: 250px;
+    }
   }
 
 @media only screen and (max-width: 640px) {
@@ -104,6 +110,7 @@ span.nav-dropdown-button{
     .nav-dropdown a{
         text-align: left;
     }
+
   }
 
 .layout__footer{
