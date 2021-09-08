@@ -1,10 +1,11 @@
 body{
     position: absolute;
-    top: 130px;
+    top: 110px;
+    margin: 0;
 }
 
 .top-bar{
-    padding: 32px 80px;
+    padding: 32px 60px;
 }
 
 .top-bar .top-bar-right-mobile{
@@ -13,7 +14,6 @@ body{
 
 .top-bar, .top-bar ul{
     background-color: hsl(0, 0%, 100%);
-
     z-index: 10;
 }
 
@@ -41,20 +41,23 @@ ul.menu li a {
 }
 
 span.nav-dropdown-button{
-    font-size: 70px;
+    position: fixed;
+    right: 40px;
+    top: 32px;
+    font-size: 50px;
     cursor: pointer;
 }
 
 .nav-dropdown{
     position: fixed; 
-    right: 59px;
-    top: 115px;
+    right: 5%;
+    top: 135px;
     background-color: white;
     padding: 42px;
     z-index: 11;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     font-size: 28px;
-    width: 220px;
+    width: 90%;
 }
 
 #dropdown-register{
@@ -86,9 +89,6 @@ span.nav-dropdown-button{
       display: block;
     }
 
-    body{
-        top: 250px;
-    }
   }
 
 @media only screen and (max-width: 640px) {
@@ -98,14 +98,10 @@ span.nav-dropdown-button{
     #nav-register-button{
         display: none;
     }
-    .top-bar-left {
-        display: none;
-      }
-    .nav-dropdown{
-
-        left: 59px;
-        right: 50%;
+    .top-bar{
+        padding: 32px 20px;
     }
+
     .nav-dropdown a{
         text-align: left;
     }
@@ -126,7 +122,7 @@ span.nav-dropdown-button{
 
 .layout__footer-bar{
     padding: 30px;
-    background-color: #2D3643; 
+    background-color: #1E242E ; 
 }
 
 .layout__footer-bar span{
