@@ -3,6 +3,10 @@ p{
     margin-bottom: 15px;
 }
 
+a{
+    color: #75D4F9;
+}
+
 /* Get rid of text selection */
 body{
     -webkit-touch-callout: none;
