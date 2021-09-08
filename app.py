@@ -55,6 +55,10 @@ def error():
     
     return flask.render_template('error.html')
 
+@app.route('/privacy-policy')
+def privacy():
+    # privacy policy
+    return flask.render_template('privacy-policy.html')
 # ------------------- API ROUTES ---------------- 3
 
 @app.route('/api/register-email', methods=['POST'])
