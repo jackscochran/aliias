@@ -6,7 +6,8 @@
 
         <!--  Meta Data -->
         <meta charset="UTF-8"> <!--Don't know what exactly to set this too-->
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <!-- CSS imports -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../static/css/global/global.css">
@@ -23,6 +24,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="../static/js/global/form-validation.js"></script>
         <script src="../static/js/pages/layout.js"></script>
+        <script src="../static/js/global/global.js"></script>
+
 
         {% block jsImports %}{% endblock %}
         
@@ -30,12 +33,11 @@
 
     </head>
     <body>
-        <nav id="navbar">
-              
+        <nav id="navbar">  
               <div class="top-bar">
                 <div class="top-bar-left">
                     <ul class="menu">
-                      <li><img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS"><li>
+                      <li><a href="/"><img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS"></a><li>
                     </ul>
                 </div>
                 <div class="top-bar-right">
@@ -45,8 +47,8 @@
                     <li><a href="/help">Help</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/register">Register</a></li>
-                    <li><input type="text" name="query" placeholder="AAPL..."></input></li>
-                    <li><button type="submit" action="/search" class="button secondary hollow">Search</button></li>
+                    <!-- <li><input type="text" name="query" placeholder="AAPL..."></input></li>
+                    <li><button type="submit" action="/search" class="button secondary hollow">Search</button></li> -->
                   </ul>
                 </div>
                 <div class="top-bar-right-mobile top-bar-right">
@@ -106,5 +108,6 @@
           </div>
         </div>
     </body>
+
 
 </html>

@@ -20,6 +20,59 @@ body{
     max-height: 25px;
 }
 
+/* Model popup styling */
+
+.popup-model{
+    width: 84%;
+    height: 84%;
+    top: 8%;
+    right: 8%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    position: fixed;
+    z-index: 11;
+    background-color: white;
+}
+
+.popup-canvas{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    opacity: 0.6;
+    background-color: white;
+    top: 0;
+}
+
+.scrollable{
+    overflow: scroll;
+    padding: 0 20px;
+    overflow-x: hidden;
+    height: 360px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 500px){
+    .popup-model{
+        overflow-y: scroll;
+    }
+}
+
+.terms-and-service h1{
+    background-color: #1A1A1A;
+    padding: 16px;
+    color: white;
+}
+
+.terms-and-service p{
+    padding: 10px;
+}
+
+.terms-and-service ul li{
+    margin: 10px;
+}
+
+/* end model styling */
+
 .primary-blue{
     background-color: #75D4F9 !important;
 }
@@ -82,6 +135,10 @@ body{
 
 .margin-bottom-100{
     margin-bottom: 100px;
+}
+
+.padding-25{
+    padding: 25px;
 }
 
 

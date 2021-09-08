@@ -4,7 +4,7 @@ body{
 }
 
 .top-bar{
-    padding: 32px 100px;
+    padding: 32px 80px;
 }
 
 .top-bar .top-bar-right-mobile{
@@ -48,12 +48,13 @@ span.nav-dropdown-button{
 .nav-dropdown{
     position: fixed; 
     right: 59px;
-    top: 135px;
+    top: 115px;
     background-color: white;
     padding: 42px;
     z-index: 11;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     font-size: 28px;
+    width: 220px;
 }
 
 #dropdown-register{
@@ -84,9 +85,7 @@ span.nav-dropdown-button{
     .top-bar .top-bar-right-mobile{
       display: block;
     }
-    .top-bar{
-        padding: 50px 100px;
-    }
+
     body{
         top: 250px;
     }
