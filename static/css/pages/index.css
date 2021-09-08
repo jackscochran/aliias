@@ -1,7 +1,8 @@
 body, html{
-    overflow-x: hidden;
     height: 100%;
 }
+
+
 .index__background-image{
     background-image: url("../../img/backgrounds/stocks-1.webp");
 }
