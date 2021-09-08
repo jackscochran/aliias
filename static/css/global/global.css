@@ -35,6 +35,7 @@ body{
     position: fixed;
     z-index: 11;
     background-color: white;
+    overflow-y: scroll;
 }
 
 .popup-canvas{
@@ -55,11 +56,6 @@ body{
     margin: 10px;
 }
 
-@media only screen and (max-width: 500px){
-    .popup-model{
-        overflow-y: scroll;
-    }
-}
 
 .terms-and-service h1{
     background-color: #1A1A1A;
