@@ -27,7 +27,8 @@ def index():
 @app.route('/portfolio')
 def portfolio():
     # Porfolio page
-    return flask.render_template('portfolio.html')
+    # return flask.render_template('portfolio.html')
+    return flask.render_template('coming-soon.html')
 
 @app.route('/help')
 def help():
