@@ -69,3 +69,20 @@ def company_data_list_format(ticker):
     }
 
     return company_data
+
+def search(query, n):
+
+    results = {}
+
+    ticker_matches = companies.Company.objects(ticker__icontains=query)[:n]
+
+    for company in ticker_matches:
+        results[company.ticker] = company.company_name
+
+    name_matches = companies.Company.objects(company_name__icontains=query)[:n]
+
+    for company in name_matches:
+        if company.ticker not in results.keys():
+            results[company.ticker] = company.company_name
+
+    return results

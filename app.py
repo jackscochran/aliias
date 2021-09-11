@@ -1,5 +1,6 @@
 import flask
 import math
+import datetime
 import databases.aliias_web.adaptors.email as email_adaptor
 import databases.aliias_stocks.adaptors.portfolio as portfolio_adaptor
 import databases.aliias_stocks.adaptors.company as company_adaptor
@@ -60,6 +61,13 @@ def error():
 def privacy():
     # privacy policy
     return flask.render_template('privacy-policy.html')
+
+@app.route('/<ticker>')
+def company(ticker):
+    date = str(datetime.date.today())
+    company = company_adaptor.get_company(ticker)
+    return flask.render_template('company.html', ticker=ticker, price=company.get_price(date), quote_data=company.get_quote_data(date))
+
 # ------------------- API ROUTES ---------------- 3
 
 @app.route('/api/register-email', methods=['POST'])
@@ -194,6 +202,22 @@ def portfolio_performance():
 
     return flask.jsonify({'error': True})
     
+@app.route('/api/search-stock', methods=['GET'])
+def search_stock():
+    
+    stock_db_manager.setup_heroku_mongo_connection()
+
+    if flask.request.method == 'GET':
+        query = flask.request.args.get('query')
+
+        responseDict = {
+            'results': company_adaptor.search(query, 20)
+        }
+
+        return flask.jsonify(responseDict)
+
+    return flask.jsonify({'error': True})
+
 # ------------------- RUNNER FUNCTION ---------------- #
 
 if __name__ == "__main__":
