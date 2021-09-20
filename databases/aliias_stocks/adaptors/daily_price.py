@@ -4,6 +4,7 @@ interact with the daily pirces collection in the
 mondoDB database
 """
 import math
+import datetime
 
 from ..data import daily_prices
 from ..controllers import data_pipeline
@@ -45,7 +46,7 @@ def get_weekday_price(ticker, date):
     else:
         price = price.price
 
-    if math.isnan(price): # stock holiday - set to wednesday
+    if price is None or math.isnan(price): # stock holiday - set to wednesday
         if timeline.weekday(date) == 0: # monday
             date = timeline.change_days(date, 2)
         elif timeline.weekday(date) == 1: # tuesday
@@ -67,6 +68,9 @@ def get_weekday_price(ticker, date):
 
     return price
 
+def get_historical_prices(ticker, months_back):
+    date = timeline.change_months(str(datetime.date.today()), -months_back)
+    return daily_prices.DailyPrice.objects(ticker=ticker, price__ne=-1, date__gte=date)
 
 def exists(ticker, date):
     return daily_prices.DailyPrice.objects(ticker=ticker, date=date).first() is not None

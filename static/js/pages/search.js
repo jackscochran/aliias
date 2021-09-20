@@ -1,9 +1,9 @@
 function search(query){
 
     function displayResult(ticker, companyFullName){
-        // var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><a href="/stocks/' + ticker + '">View Company</a><hr></div>'
+        var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><a href="/stocks/' + ticker + '">View Company</a><hr></div>'
 
-        var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><hr></div>'
+        // var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><hr></div>'
     
         $('#search-results').append(resultHTML)
     }

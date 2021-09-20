@@ -62,11 +62,12 @@ def privacy():
     # privacy policy
     return flask.render_template('privacy-policy.html')
 
-@app.route('/<ticker>')
+@app.route('/stocks/<ticker>')
 def company(ticker):
+    stock_db_manager.setup_network_connection('aliias')
     date = str(datetime.date.today())
     company = company_adaptor.get_company(ticker)
-    return flask.render_template('company.html', ticker=ticker, price=company.get_price(date), quote_data=company.get_quote_data(date))
+    return flask.render_template('company.html', company=company, price=company.get_price(date), quote_data=company.get_quote_data(date))
 
 # ------------------- API ROUTES ---------------- 3
 
@@ -205,7 +206,7 @@ def portfolio_performance():
 @app.route('/api/search-stock', methods=['GET'])
 def search_stock():
     
-    stock_db_manager.setup_heroku_mongo_connection()
+    stock_db_manager.setup_network_connection('aliias')
 
     if flask.request.method == 'GET':
         query = flask.request.args.get('query')
@@ -217,6 +218,29 @@ def search_stock():
         return flask.jsonify(responseDict)
 
     return flask.jsonify({'error': True})
+
+@app.route('/api/historical-prices')
+def historical_prices():
+    stock_db_manager.setup_network_connection('aliias')
+
+    if flask.request.method == 'GET':
+        ticker = flask.request.args.get('ticker')
+        dates = []
+        prices = []
+        for price in price_adaptor.get_historical_prices(ticker, months_back=6):
+            dates.append(price.date)
+            prices.append(price.price)
+
+
+        return flask.jsonify(
+            {
+                'results': {
+                    'dates': dates,
+                    'prices': prices
+                }
+            }
+        
+        )
 
 # ------------------- RUNNER FUNCTION ---------------- #
 
