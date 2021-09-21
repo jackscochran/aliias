@@ -22,15 +22,20 @@
     <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 text-center">
         <canvas class="margin-top-50" id="priceChart" ></canvas>
     </div>
-    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 text-center margin-top-100">
-        <table>
+    <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 text-left margin-top-100">
+        <div class="grid-x">
             {% for data_point in quote_data.data %}
-            <tr>
-                <th>{{data_point}}</th>
-                <td>{{quote_data.data[data_point]}}</td>
-            </tr>
+
+            <div class="cell small-12 medium-6 large-3">
+                <p><b>{{data_point}}</b></p>
+            </div>
+            <div class="cell small-12 medium-6 large-3">
+                <p>{{quote_data.data[data_point]}}</p>
+            </div>
             {% endfor %}
-        </table>
+
+        </div>
+
     </div>
 </div>
 
