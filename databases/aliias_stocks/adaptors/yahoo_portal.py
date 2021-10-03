@@ -115,6 +115,10 @@ def extract_historical_price_data(ticker, start_date, end_date):
             })
 
     return prices
+
+def get_sp500():
+    return yf_stock_info.tickers_sp500(True).to_dict()
+    
 # ------------ Helper Functions -------------- #
 
 def convert_currency(amount):

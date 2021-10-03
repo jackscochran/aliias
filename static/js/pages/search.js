@@ -1,11 +1,9 @@
 function search(query){
 
     function displayResult(ticker, companyFullName){
-        var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><a href="/stocks/' + ticker + '">View Company</a><hr></div>'
-
-        // var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><hr></div>'
+        var resultHTML = '<div class="search-result"><h3>' + ticker + ' <small>' + companyFullName+ '</small></h3><a href="/stocks/' + ticker + '">View Company</a><hr></div>';
     
-        $('#search-results').append(resultHTML)
+        $('#search-results').append(resultHTML);
     }
 
     if(!query){
@@ -36,7 +34,7 @@ function search(query){
             }
 
             var results = data['results'];
-            console.log(results)
+            
             if (results){
 
                 for(const ticker in results){

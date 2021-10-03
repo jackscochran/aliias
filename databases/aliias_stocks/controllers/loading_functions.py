@@ -1,15 +1,8 @@
 """ 
-The data pipeline module is used to host functions
-and commands that feed data from the web into the 
-database on a recurring basis. 
+The loading functions module hosts any functions that will be used to load data into the database, most often one-time/manually triggered loads.
 
 The main commands are:
-    Earings Calender: This scrapes the tickers, and 
-    all their related data from yahoo finance and stores
-    it into the aliias cloud database
-
-    Daily Prices: This collects today's price for all 
-    companies in the database
+    
 """
 
 # Standard libary imports
@@ -37,7 +30,7 @@ from ..adaptors import portfolio as portfolio_adaptor
     
 # ----------- MAIN FUNCTIONS ---------- #
 
-def load_price_and_evaluate_earnings():
+def load_price_and_evaluate_thru_earnings():
     # collect and save all daily prices since the companies first earnings calender
     for earnings_date in earnings_date_adaptor.get_all():
         if earnings_date.date in ['2021-07-29', '2021-07-30', '2021-08-02']:

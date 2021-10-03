@@ -8,11 +8,6 @@ $(document).ready(function(){
         dataType: 'JSON',
         success: function(data){
 
-            // data.map(function(item){
-            //     return JSON.parse(item);
-            // })
-
-            console.log(data['results'])
             var priceChart = new Chart('priceChart', {
                 type: 'line',
                 data: {

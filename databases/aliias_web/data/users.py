@@ -8,6 +8,6 @@ class User(mongoengine.Document):
     paymentInfo = mongoengine.DictField()
 
     meta = {
-        'db_alias': 'core',
+        'db_alias': 'web',
         'collection': 'users'
     }

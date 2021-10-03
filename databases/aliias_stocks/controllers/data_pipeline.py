@@ -10,6 +10,10 @@ The main commands are:
 
     Daily Prices: This collects today's price for all 
     companies in the database
+
+    Quote Data: This collects today's quote data for all companies in the database on
+
+    collect sp 500: Scrapes and ads all companies on the S&P 500 index into ALIIAS's database
 """
 
 # Standard libary imports
@@ -70,6 +74,13 @@ def collect_historical_price_data(ticker, start_date):
             price=price['value']
         )
 
+def initiate(ticker, company_name, date):
+    company_adaptor.add_company(ticker, company_name)
+    collect_historical_price_data(ticker, date)
+    collect_and_save_quote(ticker)
+    collect_and_save_financials(ticker)
+    evaluator_adaptor.evaluate(ticker, date, 'modelOne')
+
 # ----------- MAIN FUNCTIONS ---------- #
 
 def collect_earnings(date):
@@ -121,5 +132,10 @@ def collect_quote_data():
         if not quote_adaptor.exists(ticker, date):
             collect_and_save_quote(ticker)
 
-
-    
+def collect_sp500():
+    sp500 = yahoo_portal.get_sp500()
+    for i in range(len(sp500)):
+        company_name = sp500["Security"][i]
+        ticker = sp500["Symbol"][i]
+        print(company_name + '(' + ticker + ') - ' + str(i) + ' / ' + str(len(sp500)))#display progress
+        initiate(ticker, company_name, str(datetime.date.today()))

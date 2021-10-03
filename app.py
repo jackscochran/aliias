@@ -64,7 +64,7 @@ def privacy():
 
 @app.route('/stocks/<ticker>')
 def company(ticker):
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
     date = str(datetime.date.today())
     company = company_adaptor.get_company(ticker)
     return flask.render_template('company.html', company=company, price=company.get_price(date), quote_data=company.get_quote_data(date))
@@ -206,7 +206,7 @@ def portfolio_performance():
 @app.route('/api/search-stock', methods=['GET'])
 def search_stock():
     
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         query = flask.request.args.get('query')
@@ -221,7 +221,7 @@ def search_stock():
 
 @app.route('/api/historical-prices')
 def historical_prices():
-    stock_db_manager.setup_network_connection('aliias')
+    stock_db_manager.setup_heroku_mongo_connection()
 
     if flask.request.method == 'GET':
         ticker = flask.request.args.get('ticker')
