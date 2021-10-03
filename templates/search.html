@@ -9,30 +9,31 @@
 {% endblock %}
 
 {% block title %}
-    Search
+Search
 {% endblock %}
 
 {% block body %}
 <div class="row grid-x banner">
     <div class="cell small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 text-center">
-        <h2 class="color-secondary-yellow">Search</h2>
+        <h2>Search</h2>
         <p>Search our database and get information on over 3600 companies.</p>
         <hr>
         <br>
         <div class="grid-x">
             <div class="cell small-10">
-                <input id="query-input" placeholder="Netflix Inc, NFLX " name="query" class="large-search-bar" type="search">
+                <input id="query-input" placeholder="Netflix Inc, NFLX " name="query" class="large-search-bar"
+                    type="search">
 
             </div>
             <div class="cell small-1">
                 <a id="query-icon" class="search-icon material-icons color-primary-blue">search</a>
             </div>
             <div id="search-results" class="search-results text-left cell small-12">
-                
-            </div>  
+
+            </div>
         </div>
     </div>
-    
+
 </div>
 
 {% endblock %}
