@@ -1,16 +1,16 @@
-.large-search-bar{
-    margin-bottom: 50px;
-    height: 2.6rem;
-    border-radius: 12px;
+.large-search-bar {
+  margin-bottom: 50px;
+  height: 2.6rem;
+  border-radius: 12px;
 }
 
-.search-icon{
-    font-size: 44px;
-    font-weight: 100;
-    margin-left: 15px;
-    cursor: pointer;
+.search-icon {
+  font-size: 44px;
+  font-weight: 100;
+  margin-left: 15px;
+  cursor: pointer;
 }
 
-.search-result{
-    margin-top: 50px;
+.search-result {
+  margin-top: 50px;
 }
