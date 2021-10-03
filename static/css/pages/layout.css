@@ -1,142 +1,142 @@
-body{
-    position: absolute;
-    top: 110px;
-    margin: 0;
-    overflow-x: hidden;
+body {
+  position: absolute;
+  top: 110px;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-
-.top-bar{
-    padding: 32px 60px;
+.top-bar {
+  padding: 32px 60px;
 }
 
-.top-bar .top-bar-right-mobile{
-    display: none;
+.top-bar .top-bar-right-mobile {
+  display: none;
 }
 
-.top-bar, .top-bar ul{
-    background-color: hsl(0, 0%, 100%);
-    z-index: 10;
+.top-bar,
+.top-bar ul {
+  background-color: hsl(0, 0%, 100%);
+  z-index: 10;
 }
 
-.top-bar{
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    position: fixed;
-    top: 0;
-    width: 100%;
+.top-bar {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
-.top-bar ul li{
-    padding-right: 5px;
-    padding-left: 5px;
+.top-bar ul li {
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 ul.menu li a {
-    color: #3b3b3b;
-    font: sans-serif;
-    font-weight: 100;
+  color: #3b3b3b;
+  font: sans-serif;
+  font-weight: 100;
 }
 
-.top-bar ul li input{
-    margin-right: 0;
-    margin-left: 3em;
+.top-bar ul li input {
+  margin-right: 0;
+  margin-left: 3em;
+  border-radius: 12px;
+}
+.top-bar ul li .nav-search-button {
+  border-radius: 12px;
 }
 
-span.nav-dropdown-button{
-    position: fixed;
-    right: 40px;
-    top: 32px;
-    font-size: 50px;
-    cursor: pointer;
+span.nav-dropdown-button {
+  position: fixed;
+  right: 40px;
+  top: 32px;
+  font-size: 50px;
+  cursor: pointer;
 }
 
-.nav-dropdown{
-    position: fixed; 
-    right: 5%;
-    top: 135px;
-    background-color: white;
-    padding: 42px;
-    z-index: 11;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    font-size: 28px;
-    width: 90%;
+.nav-dropdown {
+  position: fixed;
+  right: 5%;
+  top: 135px;
+  background-color: white;
+  padding: 42px;
+  z-index: 11;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  font-size: 28px;
+  width: 90%;
 }
 
-.nav-dropdown ul li{
-    transition: background-color 0.3s ease;
+.nav-dropdown ul li {
+  transition: background-color 0.3s ease;
 }
 
-.nav-dropdown ul li:hover{
-    background-color: #F9F9F9;
+.nav-dropdown ul li:hover {
+  background-color: #f9f9f9;
 }
 
-
-#dropdown-register{
-    display: none;
+#dropdown-register {
+  display: none;
 }
 
 @media only screen and (max-width: 1150px) {
-    .top-bar-left {
-      display: None;
-    }
-    .top-bar-right{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .top-bar ul li input{
-        margin-left: 2em;
-    }
+  .top-bar-left {
+    display: None;
   }
+  .top-bar-right {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .top-bar ul li input {
+    margin-left: 2em;
+  }
+}
 
 @media only screen and (max-width: 1000px) {
-    .top-bar-right {
-      display: None;
-    }
-    .top-bar-left {
-        display: block;
-      }
-    
-    .top-bar .top-bar-right-mobile{
-      display: block;
-    }
-
+  .top-bar-right {
+    display: None;
   }
+  .top-bar-left {
+    display: block;
+  }
+
+  .top-bar .top-bar-right-mobile {
+    display: block;
+  }
+}
 
 @media only screen and (max-width: 640px) {
-    #dropdown-register{
-        display: block;
-    }
-    #nav-register-button{
-        display: none;
-    }
-    .top-bar{
-        padding: 32px 20px;
-    }
-
-    .nav-dropdown a{
-        text-align: left;
-    }
-
+  #dropdown-register {
+    display: block;
+  }
+  #nav-register-button {
+    display: none;
+  }
+  .top-bar {
+    padding: 32px 20px;
   }
 
-.layout__footer{
-    margin: 80px 15% 50px 15%;
+  .nav-dropdown a {
+    text-align: left;
+  }
 }
 
-.layout__footer p{
-    font-size: 14px;
+.layout__footer {
+  margin: 80px 15% 50px 15%;
 }
 
-.layout__footer .cell{
-    margin: 10px 0;
+.layout__footer p {
+  font-size: 14px;
 }
 
-.layout__footer-bar{
-    padding: 30px;
-    background-color: #1E242E ; 
+.layout__footer .cell {
+  margin: 10px 0;
 }
 
-.layout__footer-bar span{
-    color: #ffffff;
+.layout__footer-bar {
+  padding: 30px;
+  background-color: #1e242e;
 }
 
+.layout__footer-bar span {
+  color: #ffffff;
+}
