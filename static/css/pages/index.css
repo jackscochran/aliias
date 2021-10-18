@@ -31,6 +31,7 @@ html {
   padding: 22px;
 }
 
+
 .index__top-banner p {
   color: #ffffff;
   font-family: sans-serif;
@@ -52,7 +53,8 @@ html {
   font-size: 35px;
   margin-bottom: 20px;
   text-align: center;
-  padding: 60px 10px;
+  padding: 80px 30px;
+  border: none;
 }
 
 .index__header-box--dark {

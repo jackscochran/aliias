@@ -133,10 +133,17 @@ span.nav-dropdown-button {
 }
 
 .layout__footer-bar {
-  padding: 30px;
+  padding: 20px;
   background-color: #1e242e;
 }
 
 .layout__footer-bar span {
   color: #ffffff;
+}
+
+.layout__footer-bar__hyperlinks{
+  margin-bottom: 18px;
+  margin-top: 10px;
+  margin-left: 40px;
+  font-size: 18px;
 }

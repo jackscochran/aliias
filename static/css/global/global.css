@@ -107,6 +107,9 @@ input[type="text"] {
 .primary-green {
   background-color: #4bb543;
 }
+.white{
+  color: #fff;
+}
 
 .color-primary-green {
   color: #4bb543;
