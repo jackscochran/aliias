@@ -1,3 +1,8 @@
+h1, h2, h3, h4, h5, h6, p {
+  font-family: "Montserrat", sans-serif !important;
+
+}
+
 p {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -22,10 +27,9 @@ input[type="text"] {
 }
 
 .logo {
-  width: 113px;
-  height: 25px;
-  max-width: 113px;
-  max-height: 25px;
+  width: 150px;
+  height: auto;
+  max-width: 150px;
 }
 
 /* Model popup styling */
@@ -121,7 +125,17 @@ input[type="text"] {
   color: #fff;
 }
 
-.button-blue:hover {
+.button-white {
+  background-color: #ffffff !important;
+  color: black !important;
+}
+
+.button-black {
+  background-color: black !important;
+  color: white !important;
+}
+
+.button:hover {
   opacity: 0.8;
   transition: opacity 0.3s ease-out;
 }
@@ -150,6 +164,14 @@ input[type="text"] {
   margin-bottom: 100px;
 }
 
+.margin-bottom-50 {
+  margin-bottom: 50px;
+}
+
 .padding-25 {
   padding: 25px;
+}
+
+.padding-bottom-50 {
+  margin-bottom: 50px;
 }

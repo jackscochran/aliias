@@ -20,6 +20,8 @@ from ..data import quotes as quotes
 class Company(mongoengine.Document):
     ticker = mongoengine.StringField(unique=True, required=True)
     company_name = mongoengine.StringField(required=True)
+    industry = mongoengine.StringField()
+    sector = mongoengine.StringField()
 
     def get_latest_financials(self, period):
         return self.get_financials(str(datetime.date.today()), period)
