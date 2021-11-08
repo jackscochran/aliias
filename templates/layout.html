@@ -20,6 +20,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" type="image/png" href="../static/img/favicons/favicon-32.png" />
 
+  <!-- Font imports -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
   {% block cssImports %}{% endblock %}
 
   <!-- Javascript imports -->
@@ -40,24 +43,23 @@
     <div class="top-bar">
       <div class="top-bar-left">
         <ul class="menu">
-          <li><a href="/"><img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS"></a>
-          <li>
+          <li><a href="/"><img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS"></a><li>
         </ul>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><a href="/">Home</a></li>
-          <li><a href="/portfolio">Porfolio</a></li>
-          <li><a href="/help">Help</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><small><a href="/">Home</a></small></li>
+          <li><small><a href="/portfolio">Porfolio</a></small></li>
+          <li><small><a href="/help">Help</a></small></li>
+          <li><small><a href="/about">About</a></small></li>
+          <li><small><a href="/register">Register</a></small></li>
           <li><input id="nav-search-input" type="text" name="query" placeholder="AAPL..."></input></li>
-          <li><button id="nav-search-button" class="button button-blue nav-search-button">Search</button></li>
+          <li><button id="nav-search-button" class="button button-white nav-search-button">Search Stocks</button></li>
         </ul>
       </div>
       <div class="top-bar-right-mobile top-bar-right">
         <ul class="menu">
-          <li><span id="nav-dropdown-button" class="material-icons nav-dropdown-button">list</span></li>
+          <li><span id="nav-dropdown-button" class="material-icons nav-dropdown-button">segment</span></li>
         </ul>
       </div>
     </div>
@@ -78,7 +80,15 @@
   {% block body %}
   {% endblock %}
 
-  <div class="row">
+  <div class="row grid-x margin-top-100">
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center">
+        <h5><small>ALIIAS Investments</small></h5>
+        <br>
+    </div>
+    
+</div>
+
+  <!-- <div class="row">
     <div class="layout__footer grid-x">
       <div class="cell small-12">
         <img class="logo" src="../static/img/logo/logo-1.jpg" alt="ALLIAS">
@@ -122,7 +132,7 @@
       <span>© 2021 ALIIAS INVESTMENTS</span>
     </div>
   </div>
-</body>
+</body> -->
 
 
 </html>

@@ -6,7 +6,7 @@ body {
 }
 
 .top-bar {
-  padding: 32px 60px;
+  padding: 40px 60px;
 }
 
 .top-bar .top-bar-right-mobile {
@@ -40,10 +40,12 @@ ul.menu li a {
 .top-bar ul li input {
   margin-right: 0;
   margin-left: 3em;
-  border-radius: 12px;
+  border-radius: 6px;
+
 }
 .top-bar ul li .nav-search-button {
-  border-radius: 12px;
+  border-radius: 6px;
+  border: 1px solid lightgray;
 }
 
 span.nav-dropdown-button {
