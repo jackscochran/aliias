@@ -5,7 +5,12 @@
 
   }
 
-ul li{
-  line-height: 2;
-  margin-top: 15px;
+.algo-step-icon{
+    width: 50px;
+    height: auto;
+    text-align: left;    
+    display: block;
+    margin-bottom: 40px;
 }
+
+

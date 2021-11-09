@@ -1,0 +1,14 @@
+.quote-data-label{
+    background-color: #75d4f9;
+    color: white;
+    border-radius: 12px;
+}
+
+.quote-data-label, .quote-data-value{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.quote-data-value{
+    border-bottom: 1px solid black;
+}

@@ -10,30 +10,69 @@
 
 {% block body %}
 
-<div class="row grid-x banner">
-    <div class="cell small-10 small-offset-1 large-6 large-offset-3 text-center">
-        <h1>What We Do</h1>
-        <p>We use quantitative analysis and AI to rate different North American Stocks on a scale from 1-10. From this ongoing analysis, we've created a portfolio from which members of our community can monitor and track our 25 highest-rated stocks.</p>
-        <p>We've also created a search feature for members that allows them to search over 1000 stocks (expanding all the time) to acquire insights on the rating we've assigned them. We also include their financials in the context of our ratings.</p>
-        <p>We are building additional portfolios based on unique investor needs, from emerging tech to socially responsibility investing.</p>
+<div class="hero-image">
+    <div class="hero-text">
+        <h1>About</h1>
     </div>
-    
-</div>
-
-<div class="row grid-x banner background-light-grey">
-    <div class="cell small-10 small-offset-1 large-6 large-offset-3 text-center">
-        <h2>Meet the Algorithm</h2>
-        <p>Our quantitative algorithm utilizes mathematical and statistical analysis to determine the value of a certain financial asset. This includes a variety of data such as historical investments and stock data. Additionally our algorithm utilizes AI as it weights each pick's performance to benchmark how to improve future performance, learning from every pick.</p>
-    </div>
-    
 </div>
 
 <div class="row grid-x banner">
-    <div class="cell small-10 small-offset-1 large-6 large-offset-3 text-center">
-        <h2>Meet the Team</h2>
-        <p> Our team consists of three students at western university with financial and software engineering backgrounds.</p>
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center margin-bottom-50">
+        <h2>Bridging the gap between you and the stock market pros.</h2>
     </div>
-    
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center">
+        <hr>
+    </div>
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center banner text-grey">
+        <p>Our purpose is to help make young investors comfortable when making investments in the stock market, through a simple online stock analysis tool, backed by A.I.</p>
+        <p>At ALIIAS we understand that when you start investing it can be overwhelming, but that is common. There can be alot of confusing terms, concepts and trades that can seem like only rich or institutional investors (such as hedge funds) can invest and make good returns. But at ALIIAS we can give you the edge with investing you didn't think you had before. With in-depth stock analysis such as stock ratings, company financials and a A.I generated stock portfolio with returns that beat the S&P each year, you can grow your wealth like the stock market pros.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center">
+        <hr>
+    </div>
+</div>
+
+<div class="row grid-x">
+    <div class="cell small-10 small-offset-1 large-8 large-offset-2 text-center margin-bottom-100">
+        <h5><small>WE ARE THE BEST AT</small></h5>
+        <h2>How our Algoirthm Works</h2>
+    </div>
+
+    <!-- row 1 -->
+
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-1.svg">
+        <h5 class="text-left">Web Crawling</h5>
+        <p class="text-left">Our software continously scrapes stock market and financial data for over 10,000 companies. We collect various points of historical data, including share price and quote data along with income, balance, and cash flow statements.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 large-offset-1 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-2.svg">
+        <h5 class="text-left">Data Cleaning</h5>
+        <p class=" text-left">During and after collection, we clean and format the data for the companies we have collected. This includes joining information gathered from different sources and removing any companies with 'dirty' data which could skew our results.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 large-offset-1 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-3.svg">
+        <h5 class="text-left">Ratio Calculations</h5>
+        <p class=" text-left">Using the data collected, for each company we calculate ratios such as EPS, profit margins, ROA, etc. These metrics are industry standards and are very effective at assesing both the financial health and historical stock performance of a business.</p>
+    </div>
+
+    <!-- row 2 -->
+
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-4.svg">
+        <h5 class="text-left">Training the Algorithm</h5>
+        <p class="text-left">Using the clean and formatted data, our algorithm can learn from 10 years worth of company data and stock performance to find which metrics are the most reflective of future stock performance. This is done everyday using new data that has been collected.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 large-offset-1 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-5.svg">
+        <h5 class="text-left">Stock Ratings</h5>
+        <p class=" text-left">Now that the algorithm has been trained on past data, we can feed any current stock along with its ratios and metrics to get a rating that represents it's potential for future returns. Using this, everyday we collect data on and rate companies who have released their financials.</p>
+    </div>
+    <div class="cell small-10 small-offset-1 medium-offset-2 medium-3 large-2 large-offset-1 text-center margin-bottom-50">
+        <img class="algo-step-icon" src="../static/img/icons/about-6.svg">
+        <h5 class="text-left">Portfolio Creation</h5>
+        <p class=" text-left">Every month, we sell the stocks that have been held for a year and replace them with the top rated companies in our database. This creates a portfolio of companies that stand out amoung the rest, and offers strong yearly returns.</p>
+    </div>
 </div>
 
 {% endblock %}

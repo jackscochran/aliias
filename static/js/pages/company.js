@@ -18,13 +18,29 @@ $(document).ready(function(){
                     }]
                 },
                 options: {
+                    legend: {
+                        display: false
+                    },
                     scales: {
                         x: {
                             type: 'time',
                             time: {
                                 unit: 'day'
                             }
-                        }
+                        },
+                        xAxes: [{
+                            ticks: {
+                                display: false
+                            },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, 0)"
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                color: "rgba(0, 0, 0, 0)"
+                            }
+                        }]
                     }
                 }
             });

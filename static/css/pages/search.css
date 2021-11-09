@@ -14,3 +14,7 @@
 .search-result {
   margin-top: 50px;
 }
+
+#loading-message img{
+  width: 50%;
+}
