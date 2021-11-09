@@ -8,7 +8,7 @@ function search(query){
 
     if(!query){
         $('.search-result').remove();
-        $('#no-results-message').show();
+        $('#no-results-message').hide();
         $('#loading-message').hide();
         return
     }
@@ -26,11 +26,11 @@ function search(query){
         async: true,
         dataType: 'JSON',
         success: function(data){
-           
-            $('#loading-message').hide();
 
-            if (data['results'].length == 0){
-                $('#no-results-message').display(); // no search results
+            $('#loading-message').hide();
+            if ($.isEmptyObject(data['results'])){
+
+                $('#no-results-message').show(); // no search results
             }
 
             var results = data['results'];
@@ -55,6 +55,8 @@ function search(query){
 
 $(document).ready(function(){
     const urlParams = new URLSearchParams(window.location.search);
+    $('#no-results-message').hide();
+    $('#loading-message').hide();
     var query = urlParams.get('query');
     if (query){
         $('#query-input').val(query); //set input value to url parameter

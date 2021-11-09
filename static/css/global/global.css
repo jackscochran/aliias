@@ -1,11 +1,21 @@
+body,
+html {
+  height: 100%;
+}
+
 *{
   font-family: "Montserrat", sans-serif !important;
 
 }
 
+.material-icons {
+  font-family: 'Material Icons' !important;
+}
+
 p {
   margin-top: 15px;
   margin-bottom: 15px;
+  line-height: 2;
 }
 
 a {
@@ -20,6 +30,7 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width:100%;
 }
 
 input[type="text"] {
@@ -30,6 +41,29 @@ input[type="text"] {
   width: 150px;
   height: auto;
   max-width: 150px;
+}
+
+/* hero image */
+
+.hero-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  /* specify height and background url for each unique page */
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-35%, -50%);
+  color: white;
+}
+
+.hero-text a {
+  margin: 30px;
+  padding: 22px;
 }
 
 /* Model popup styling */
@@ -174,4 +208,8 @@ input[type="text"] {
 
 .padding-bottom-50 {
   margin-bottom: 50px;
+}
+
+.text-grey{
+  color: #1A1B1F;
 }

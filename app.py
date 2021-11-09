@@ -28,27 +28,26 @@ def index():
 @app.route('/portfolio')
 def portfolio():
     # Porfolio page
-    # return flask.render_template('portfolio.html')
-    return flask.render_template('coming-soon.html')
+    return flask.render_template('register.html')
 
 @app.route('/help')
 def help():
-    # Porfolio page
+    # help page
     return flask.render_template('help.html')
 
 @app.route('/about')
 def about():
-    # Porfolio page
+    # about page
     return flask.render_template('about.html')
 
-@app.route('/register')
-def register():
-    # Porfolio page
-    return flask.render_template('register.html')
+@app.route('/contact-us')
+def contact():
+    # contact-us page
+    return flask.render_template('contact-us.html')
 
 @app.route('/search')
 def search():
-    # Porfolio page
+    # search page
     return flask.render_template('search.html') 
 
 @app.route('/error')
@@ -67,9 +66,19 @@ def company(ticker):
     stock_db_manager.setup_heroku_mongo_connection()
     date = str(datetime.date.today())
     company = company_adaptor.get_company(ticker)
-    return flask.render_template('company.html', company=company, price=company.get_price(date), quote_data=company.get_quote_data(date))
+    quote_data = company.get_quote_data(date)
 
-# ------------------- API ROUTES ---------------- 3
+    clean_quote_data = {}
+
+    for data_point in quote_data.data:
+        if data_point == 'firstYearTargetEst':
+            continue
+        clean_label = re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1', data_point).capitalize()
+        clean_quote_data[clean_label] = quote_data.data[data_point]
+
+    return flask.render_template('company.html', company=company, price=company.get_price(date), quote_data=clean_quote_data)
+
+# ------------------- API ROUTES ---------------- #
 
 @app.route('/api/register-email', methods=['POST'])
 def register_email():
