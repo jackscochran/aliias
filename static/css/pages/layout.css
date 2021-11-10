@@ -58,22 +58,21 @@ span.nav-dropdown-button {
 
 .nav-dropdown {
   position: fixed;
-  right: 5%;
   top: 125px;
   background-color: white;
-  padding: 42px;
+  /* padding: 42px; */
   z-index: 11;
-  box-shadow: 2px 2px 7px 2px rgba(0, 0, 0, 0.2);
   font-size: 28px;
-  width: 90%;
+  width: 100%;
 }
 
 .nav-dropdown ul li {
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
+  padding: 10px 30px;
 }
 
 .nav-dropdown ul li:hover {
-  background-color: #f9f9f9;
+  background-color: #F0F0F0;
 }
 
 #dropdown-register {
