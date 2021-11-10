@@ -202,6 +202,10 @@ input[type="text"] {
   margin-bottom: 50px;
 }
 
+.margin-bottom-25 {
+  margin-bottom: 25px;
+}
+
 .padding-25 {
   padding: 25px;
 }

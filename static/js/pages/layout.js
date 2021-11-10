@@ -1,17 +1,34 @@
 $(document).ready(function(){
-
+    
     // ----------------------- Drop down logic ----------------------- //
     $('#nav-dropdown').hide();
+    $('#nav-slideup-button').hide();
 
-    $('#nav-dropdown-button, #nav-dropdown').click(function(){
-        $('#nav-dropdown').toggle();
-    })
+    function slideDown(){
+        $('#nav-dropdown').slideDown("slow");
+        $('#nav-dropdown-button').hide();
+        $('#nav-slideup-button').show();
+    }
+
+    function slideUp(){
+        $('#nav-dropdown').slideUp("slow");
+        $('#nav-dropdown-button').show();
+        $('#nav-slideup-button').hide();
+    }
+
+    $('#nav-dropdown-button').click(function(){
+        slideDown()
+    });
+
+    $('#nav-slideup-button').click(function(){
+        slideUp();
+    });
 
     $('#nav-dropdown').hover(function(){
         $('#nav-dropdown').show();
     }, function(){
-        $('#nav-dropdown').hide();
-    })
+        slideUp();
+    });
 
     // ----------------------- Nav Search logic ----------------------- //
 
